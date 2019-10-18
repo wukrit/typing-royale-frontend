@@ -1,14 +1,38 @@
-.App {
-  text-align: center;
+html {
+  height: 100%;
 }
 
-.App-logo {
-  height: 40vmin;
+body {
+  font-family: "Press Start 2P";
+  height: 100%;
+  margin: 0;
 }
 
-.App-title {
-  text-decoration: none;
-  color: white;
+/* #header {
+  height: 30px;
+  display: flex;
+  align-items: center;
+  background: linear-gradient(#444444, #333333);
+  color: #bbbbbb;
+}
+
+#headerContent {
+  margin-left: 10px;
+} */
+
+#page {
+  display: flex;
+  height: calc( 100vh - 30px);
+}
+
+#side-bar {
+  width: 20vw;
+  float: left;
+  margin: 1vh 1vw;
+}
+
+#content {
+  padding: 1vh;
 }
 
 a {
@@ -23,11 +47,20 @@ a:visited {
   text-decoration: none;
 }
 
+li {
+  text-decoration: none;
+  list-style: none;
+}
+
+.App-title {
+  text-decoration: none;
+  color: white;
+}
+
 .App-header {
   background-color: #282c34;
   min-height: 20vh;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(8px + 2vmin);
@@ -37,10 +70,6 @@ a:visited {
 
 .App-link {
   color: #09d3ac;
-}
-
-body {
-  font-family: "Press Start 2P"
 }
 
 .user-form {
@@ -57,8 +86,6 @@ body {
   justify-content: center;
 }
 
-li {
-  text-decoration: none;
-  list-style: none;
+.home-container {
+  display: flex;
 }
-

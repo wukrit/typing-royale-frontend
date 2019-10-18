@@ -33,38 +33,27 @@ function App() {
           login={login}
         />} */}
 
-      <header className="App-header">
+      <header className="App-header nes-container is-rounded is-dark">
         <Link to="/"><h1 className="App-title">Typing Royale</h1></Link>
-        {/* <aside className="sidebar">
-          <ul>
-            <li>
-              <NavLink to="/" exact>Home</NavLink>
-            </li>
-            {/* {
-              this.state.spiceGirls.map(spice => (<li key={spice.slug}>
-                <NavLink to={"/spice/" + spice.slug}>
-                  {spice.adjective}
-                </NavLink>
-              </li>))
-          </ul>
-        </aside> */}
       </header>
 
-      <Switch>
-        {/* <Route path="/spice/:slug" render={this.renderSpice} /> */}
-        {
-          /* 
-          <Route path="/emma" render={ this.renderBaby } />
-          <Route path="/mel-b" component={ Scary } />
-          <Route path="/mel-c" component={ Sporty } />
-            <Route path="/geri" component={ Ginger } />
-          <Route path="/victoria" component={ Posh } />
-          */
-        }
-        <Route path="/" exact component={HomeContainer} />
-        <Route path="/login" exact component={FormContainer} />
-      </Switch>
+      <div className="page">
+        <aside id="side-bar" className="column nes-container is-rounded">
+          <div>
+            gnome sidebar
+          </div>
+        </aside>
 
+        <div id="content" className="main-content column">
+
+          <Switch>
+            {/* <Route path="/spice/:slug" render={this.renderSpice} /> */}
+            <Route path="/" exact component={HomeContainer} />
+            <Route path="/login" exact component={FormContainer} />
+          </Switch>
+
+        </div>
+      </div>
     </div>
   );
 }

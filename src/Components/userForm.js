@@ -18,14 +18,16 @@ const UserForm = ({type, loginFunc}) => {
     return (
         <div className="user-form">
             <h2>{type}</h2>
-            <form onSubmit={handleSubmit} >
+            <form onSubmit={handleSubmit} className="nes-field">
                 <label>Username</label> 
                 <br />
                 <input 
                     type="text" 
                     value={username} 
                     name='username' 
-                    onChange={handleInput} /> 
+                    onChange={handleInput}
+                    className="nes-input"
+                    /> 
                 <br />
                 <label>Password</label> 
                 <br />
@@ -33,11 +35,15 @@ const UserForm = ({type, loginFunc}) => {
                     type="password" 
                     value={password} 
                     name="password" 
-                    onChange={handleInput} /> 
-                <br />
+                    onChange={handleInput} 
+                    className="nes-input"
+                    />
+                 <br />
                 <input 
                     type="submit" 
-                    value={type} />              
+                    value={type} 
+                    className="nes-btn"
+                    />              
             </form>
         </div>
     )

@@ -1,8 +1,15 @@
 import React from 'react';
+import useUser from './Hooks/useUser'
+import usePrompt from './Hooks/usePrompt'
 import logo from './logo.svg';
 import './App.css';
 
 function App() {
+  const [userState, userDispatch] = useUser()
+  const [promptState, promptDispatch] = usePrompt()
+  const {loggedInUserId, token} = userState
+  const {prompt} = promptState
+
   return (
     <div className="App">
       <header className="App-header">
@@ -22,5 +29,7 @@ function App() {
     </div>
   );
 }
+
+
 
 export default App;

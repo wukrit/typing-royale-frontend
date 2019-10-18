@@ -6,15 +6,33 @@
   height: 40vmin;
 }
 
+.App-title {
+  text-decoration: none;
+  color: white;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+a:visited {
+  text-decoration: none;
+}
+
 .App-header {
   background-color: #282c34;
-  min-height: 100vh;
+  min-height: 20vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  font-size: calc(8px + 2vmin);
   color: white;
+  margin-bottom: 5vh;
 }
 
 .App-link {
@@ -38,3 +56,9 @@ body {
   display: flex;
   justify-content: center;
 }
+
+li {
+  text-decoration: none;
+  list-style: none;
+}
+

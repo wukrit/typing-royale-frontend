@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 
-const UserForm = ({type, loginFunc}) => {
+const UserForm = ({type, login}) => {
     const initialDraft = {username: "", password: ""}
     const [draft, setDraft] = useState(initialDraft)
     const {username, password} = draft
@@ -11,7 +11,8 @@ const UserForm = ({type, loginFunc}) => {
 
     const handleSubmit = (event) => {
         event.preventDefault()
-        loginFunc(draft)
+        const slug = (type === "Login" ? "login" : "users")
+        login(draft, slug)
         setDraft(initialDraft)
     }
 

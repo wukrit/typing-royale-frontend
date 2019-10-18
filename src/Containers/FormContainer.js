@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import UserForm from '../Components/userForm'
 
-const FormContainer = ({loginFunc}) => {
+const FormContainer = ({login}) => {
     const [formType, setFormType] = useState("Login")
 
     const toggleType = ({target}) => {
@@ -13,7 +13,7 @@ const FormContainer = ({loginFunc}) => {
 
     return (
         <div className="form-container">
-            <UserForm type={formType} loginFunc={loginFunc} />
+            <UserForm type={formType} login={login} />
             <div className="toggle-form">
                 <span 
                     id="login-btn"

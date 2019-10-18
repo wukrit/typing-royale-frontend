@@ -5,7 +5,11 @@ const userReducer = (state, {type, payload}) => {
     switch (type) {
         case 'LOGIN':
             const {token, user_id} = payload
+            localStorage.setItem('loggedInUserId', user_id)
+            localStorage.setItem('token', token)
             return {...state, token, loggedInUserId: user_id}
+        case "SET":
+            return {...state, token: payload.token, loggedInUserId: payload.user_id}
         default:
             throw new Error("Undefined User Dispatch Action")
     }
@@ -18,8 +22,9 @@ const useUser = () => {
         prompt: {}
     }
 
-    const login = (userObj) => {
-        fetch('http://localhost:3000/login', {
+    const login = (userObj, slug) => {
+        console.log(slug)
+        fetch(`http://localhost:3000/${slug.toLowerCase()}`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

@@ -8,11 +8,13 @@ const promptReducer = (state, {type, payload}) => {
     } 
 }
 
-export const usePrompt = () => {
+const usePrompt = () => {
     const initialState = {prompt: {}}
 
-    const [state, dispatch] = useReducer(promptReducer, initalState)
+    const [state, dispatch] = useReducer(promptReducer, initialState)
     const {prompt} = state
 
     return [state, dispatch]
 }
+
+export default usePrompt

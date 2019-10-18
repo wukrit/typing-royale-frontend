@@ -14,6 +14,7 @@ const FormContainer = ({login}) => {
     return (
         <div className="form-container nes-container is-rounded">
             <UserForm type={formType} login={login} />
+            <br />
             <div className="toggle-form">
                 <span 
                     id="login-btn"

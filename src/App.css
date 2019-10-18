@@ -25,8 +25,8 @@ body {
   height: calc( 100vh - 30px);
 }
 
-#side-bar {
-  width: 20vw;
+.side-bar-wrapper {
+  width: 15vw;
   float: left;
   margin: 1vh 1vw;
 }
@@ -37,10 +37,12 @@ body {
 
 a {
   text-decoration: none;
+  color: black;
 }
 
 a:hover {
   text-decoration: none;
+  color: black;
 }
 
 a:visited {
@@ -78,12 +80,18 @@ li {
 
 .form-container {
   display: flex;
+  flex-direction: column;
   justify-content: center;
+}
+
+.user-form {
+  max-width: 25vw;
 }
 
 .toggle-form {
   display: flex;
-  justify-content: center;
+  justify-content: left;
+  
 }
 
 .home-container {

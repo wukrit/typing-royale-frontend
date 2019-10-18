@@ -1,7 +1,7 @@
 import React, {useReducer} from 'react'
 
 const userReducer = (state, {type, payload}) => {
-    const {loggedInUserId, token} = state
+    const {loggedInUserId, token, username, bio, img_url} = state
     switch (type) {
         case 'LOGIN':
             const {token, user_id} = payload
@@ -10,6 +10,9 @@ const userReducer = (state, {type, payload}) => {
             return {...state, token, loggedInUserId: user_id}
         case "SET":
             return {...state, token: payload.token, loggedInUserId: payload.user_id}
+        case "GET": 
+            const {username, bio, img_url} = payload
+            return {...state, username, bio, img_url}
         default:
             throw new Error("Undefined User Dispatch Action")
     }
@@ -23,7 +26,6 @@ const useUser = () => {
     }
 
     const login = (userObj, slug) => {
-        console.log(slug)
         fetch(`http://localhost:3000/${slug.toLowerCase()}`, {
             method: "POST",
             headers: {
@@ -33,8 +35,17 @@ const useUser = () => {
         })
         .then(res => res.json())
         .then(authObj => {
+            // window.history.pushState({}, "Home", "/")
             dispatch({type: "LOGIN", payload: authObj})
         })
+    }
+
+    const getUserData = (userId, token) => {
+        fetch(`http://localhost:3000/users/${userId}`, {
+            headers: {"Authorization": token }
+        })
+        .then(res => res.json())
+        .then(userObj => dispatch({type: 'GET', payload: userObj}))
     }
 
     const [state, dispatch] = useReducer(userReducer, initialState)
@@ -42,7 +53,7 @@ const useUser = () => {
 
     
 
-    return [state, dispatch, login]
+    return [state, dispatch, login, getUserData]
 }
 
 export default useUser

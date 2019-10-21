@@ -27,7 +27,6 @@ const ChallengeContainer = ({challenge, dispatch}) => {
             if (currentWord === input) {
                 setTotalInput([...totalInput, input])
                 setInput("")
-                setPosition(position + 1)
                 setInputColor("is-success")
                 dispatch({type: "NEXT"})
             } else {
@@ -41,8 +40,10 @@ const ChallengeContainer = ({challenge, dispatch}) => {
             <div className="challenge">
                 {/* <p>{challenge.prompt !== undefined ? challenge.prompt.text : "...loading"}</p> */}
                 <div>
-                <p className="is-success" id="completed-words">{totalInput.join(" ")}</p>
-                <p id="prompt">{challenge.prompt !== undefined ? challenge.prompt.text : "...loading"} </p>
+                <p id="prompt">
+                    <span className="nes-text is-success" id="completed-words">{totalInput.join(" ")}</span> <span> </span>
+                    {challenge.prompt !== undefined ? challenge.prompt.text : "...loading"} 
+                </p>
                 </div>
                 <br />
                     <input 

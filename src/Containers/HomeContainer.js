@@ -1,21 +1,26 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import uuid from 'react-uuid'
 
-const HomeContainer = ({loggedInUserId, challengeDispatch}) => {
+const HomeContainer = ({loggedInUserId, fetchNewChallenge}) => {
 
     const createChallenge = (event) => {
         event.preventDefault()
+        const newChallengeId = uuid()
         const fetchBody = {
+            challenge_id: newChallengeId,
             length: event.target.length.value,
             players: event.target.players.value,
             user_id: loggedInUserId,
         }
-        challengeDispatch({type: 'NEW', payload: fetchBody})
+        // console.log(fetchBody)
+        window.history.pushState(fetchBody, 'New Challenge', `/challenge/${newChallengeId}`)
+        fetchNewChallenge(fetchBody)
     } 
    
     return (
         <div className="body-container nes-container is-rounded">
-            <form className="nes-container with-title is-rounded" id="new-challenge">
+            <form className="nes-container with-title is-rounded" id="new-challenge" onSubmit={createChallenge}>
                 <p className="title">New Challenge</p>
                 <div className="challenge-length-radios nes-container is-rounded with-title">
                     <p className="title"> Length </p>

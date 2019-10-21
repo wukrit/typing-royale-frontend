@@ -6,7 +6,7 @@ const ChallengeContainer = () => {
 
     return (
         <div className="body-container nes-container is-rounded">
-
+            Hello from the gnome container
         </div>
     );
 }

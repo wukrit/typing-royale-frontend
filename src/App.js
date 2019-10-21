@@ -9,9 +9,8 @@ import ChallengeContainer from './Containers/ChallengeContainer'
 
 function App() {
   const [userState, userDispatch, login, getUserData] = useUser()
-  const [challengeState, challengeDispatch] = useChallenge()
+  const [challengeState, challengeDispatch, fetchNewChallenge] = useChallenge()
   const { loggedInUserId, token, username, bio, img_url } = userState
-  const { challenge } = challengeState
 
   useEffect(
     () => {
@@ -29,11 +28,17 @@ function App() {
   const renderUser = () => {
     return (
       <>
-        <i className="nes-kirby"></i><br/><br />
+        <i className="nes-kirby"></i><br /><br />
         <li>{`Hello ${username}!`}</li><br />
         <li>Bio: <br />{bio}</li>
       </>
     )
+  }
+
+  const renderChallenge = (renderProps) => {
+    console.log("hello from the gnome container")
+    console.log(renderProps.match.params.challenge_id) 
+    return <ChallengeContainer challengeId={renderProps.match.params.challenge_id} />
   }
 
   return (
@@ -56,15 +61,21 @@ function App() {
 
           <Switch className="nes-container">
             {/* <Route path="/spice/:slug" render={this.renderSpice} /> */}
-            <Route path="/" exact render={() => 
-              <HomeContainer 
-                loggedInUserId={loggedInUserId} 
-                challengeDispatch={challengeDispatch} 
-              />} 
+            <Route path="/" exact render={() =>
+              <HomeContainer
+                loggedInUserId={loggedInUserId}
+                fetchNewChallenge={fetchNewChallenge}
+              />}
             />
             <Route path="/challenge" exact render={() => <ChallengeContainer />} />
-            <Route path="/login" exact> {loggedInUserId ? <Redirect to="/" /> : <FormContainer login={login} /> }  </Route>
+            <Route path="/challenge/:challenge_id" render={renderChallenge} />
+            <Route path="/login" exact> {loggedInUserId ? <Redirect to="/" /> : <FormContainer login={login} />}  </Route>
           </Switch>
+
+          {/* // Click new challenge X 
+          // Gen UUID X
+          // Redirect to /challenge/:challenge_id 
+          // Fetch new challenge */}
 
         </div>
       </div>

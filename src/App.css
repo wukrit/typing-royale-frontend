@@ -96,4 +96,12 @@ li {
 
 .body-container {
   display: flex;
+  flex-direction: row;
 }
+
+button input {
+  color: white;
+  background-color: Transparent;
+  border-style: none;
+}
+

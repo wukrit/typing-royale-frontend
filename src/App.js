@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { Route, Switch, Link, Redirect } from 'react-router-dom'
 import useUser from './Hooks/useUser'
-import usePrompt from './Hooks/usePrompt'
+import useChallenge from './Hooks/useChallenge'
 import FormContainer from './Containers/FormContainer'
 import HomeContainer from './Containers/HomeContainer'
 import './App.css'
@@ -9,9 +9,9 @@ import ChallengeContainer from './Containers/ChallengeContainer'
 
 function App() {
   const [userState, userDispatch, login, getUserData] = useUser()
-  const [promptState, promptDispatch] = usePrompt()
+  const [challengeState, challengeDispatch] = useChallenge()
   const { loggedInUserId, token, username, bio, img_url } = userState
-  const { prompt } = promptState
+  const { challenge } = challengeState
 
   useEffect(
     () => {
@@ -56,7 +56,12 @@ function App() {
 
           <Switch className="nes-container">
             {/* <Route path="/spice/:slug" render={this.renderSpice} /> */}
-            <Route path="/" exact render={() => <HomeContainer />} />
+            <Route path="/" exact render={() => 
+              <HomeContainer 
+                loggedInUserId={loggedInUserId} 
+                challengeDispatch={challengeDispatch} 
+              />} 
+            />
             <Route path="/challenge" exact render={() => <ChallengeContainer />} />
             <Route path="/login" exact> {loggedInUserId ? <Redirect to="/" /> : <FormContainer login={login} /> }  </Route>
           </Switch>

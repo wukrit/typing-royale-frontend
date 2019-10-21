@@ -110,6 +110,9 @@ button input {
   font-size: x-large;
 }
 
+#balloony {
+  float: right;
+}
 /* #completed-words {
   position: absolute;
   z-index: 1;

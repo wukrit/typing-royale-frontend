@@ -34,26 +34,38 @@ const ChallengeContainer = ({challenge, dispatch}) => {
             }
         }
     }
+
+    const renderProgressBar = () => {
+        return (
+            <div className="progressbar">
+                {challenge.prompt !== undefined ? 
+                <progress className="nes-progress is-pattern" value={totalInput.length} max={`${challenge.prompt.length}`} />
+                : null }
+                <br /><br />
+            </div>
+        )
+    }
     
     return (
         <div className="body-container nes-container is-rounded">
             <div className="challenge">
                 {/* <p>{challenge.prompt !== undefined ? challenge.prompt.text : "...loading"}</p> */}
                 <div>
+                {challenge.prompt !== undefined ? renderProgressBar() : null}
                 <p id="prompt">
                     <span className="nes-text is-success" id="completed-words">{totalInput.join(" ")}</span> <span> </span>
                     {challenge.prompt !== undefined ? challenge.prompt.text : "...loading"} 
                 </p>
                 </div>
                 <br />
-                    <input 
-                        className={"nes-input challenge-input " + inputColor} 
-                        type="text" 
-                        value={input}
-                        onChange={handleInput } 
-                        onKeyPress={compareWord}
-                    />
-
+                <input 
+                    className={"nes-input challenge-input " + inputColor} 
+                    type="text" 
+                    value={input}
+                    onChange={handleInput } 
+                    onKeyPress={compareWord}
+                />
+                <div className="nes-balloon from-right" id="balloony"> Welcome to the gnome balloon </div>
             </div>
         </div>
     );

@@ -109,3 +109,19 @@ button input {
   width: inherit;
   font-size: x-large;
 }
+
+/* #completed-words {
+  position: absolute;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  height: 50px;
+}
+
+#prompt {
+  position: absolute;
+  z-index: 2;
+  left: 0;
+  top: 0;
+  height: 50px;
+} */

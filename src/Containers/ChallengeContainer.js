@@ -1,12 +1,10 @@
 import React from 'react';
-import uuid from 'react-uuid'
 
-const ChallengeContainer = () => {
-
+const ChallengeContainer = ({challenge}) => {
 
     return (
         <div className="body-container nes-container is-rounded">
-            Hello from the gnome container
+            {challenge !== {} ? challenge.id : "...loading"}
         </div>
     );
 }

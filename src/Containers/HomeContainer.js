@@ -1,8 +1,7 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 import uuid from 'react-uuid'
 
-const HomeContainer = ({loggedInUserId, fetchNewChallenge}) => {
+const HomeContainer = ({loggedInUserId, fetchNewChallenge, history}) => {
 
     const createChallenge = (event) => {
         event.preventDefault()
@@ -14,10 +13,12 @@ const HomeContainer = ({loggedInUserId, fetchNewChallenge}) => {
             user_id: loggedInUserId,
         }
         // console.log(fetchBody)
-        window.history.pushState(fetchBody, 'New Challenge', `/challenge/${newChallengeId}`)
+        // window.history.pushState(fetchBody, 'New Challenge', `/challenge/${newChallengeId}`)
+        history.push(`/challenge/${newChallengeId}`)
         fetchNewChallenge(fetchBody)
     } 
    
+    // console.log(props)
     return (
         <div className="body-container nes-container is-rounded">
             <form className="nes-container with-title is-rounded" id="new-challenge" onSubmit={createChallenge}>

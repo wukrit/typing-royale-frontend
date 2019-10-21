@@ -36,9 +36,9 @@ function App() {
   }
 
   const renderChallenge = (renderProps) => {
-    console.log("hello from the gnome container")
-    console.log(renderProps.match.params.challenge_id) 
-    return <ChallengeContainer challengeId={renderProps.match.params.challenge_id} />
+    // console.log("hello from the gnome container")
+    // console.log(renderProps.match.params.challenge_id) 
+    return <ChallengeContainer challenge={challengeState} dispatch={challengeDispatch} />
   }
 
   return (
@@ -61,20 +61,21 @@ function App() {
 
           <Switch className="nes-container">
             {/* <Route path="/spice/:slug" render={this.renderSpice} /> */}
-            <Route path="/" exact render={() =>
+            <Route path="/" exact render={(props) =>
               <HomeContainer
                 loggedInUserId={loggedInUserId}
                 fetchNewChallenge={fetchNewChallenge}
+                history={props.history}
               />}
             />
-            <Route path="/challenge" exact render={() => <ChallengeContainer />} />
+            <Route path="/challenge" exact strict render={() => <ChallengeContainer />} />
             <Route path="/challenge/:challenge_id" render={renderChallenge} />
             <Route path="/login" exact> {loggedInUserId ? <Redirect to="/" /> : <FormContainer login={login} />}  </Route>
           </Switch>
 
           {/* // Click new challenge X 
           // Gen UUID X
-          // Redirect to /challenge/:challenge_id 
+          // Redirect to /challenge/:challenge_id X
           // Fetch new challenge */}
 
         </div>

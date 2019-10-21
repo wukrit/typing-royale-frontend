@@ -3,7 +3,7 @@ import {useReducer} from 'react'
 const challengeReducer = (state, {type, payload}) => {
     switch (type) {
         case 'NEW':
-            return {payload}
+            return {...payload}
         default: 
             throw new Error("Undefined Challenge Dispatch Action")
     } 
@@ -23,8 +23,8 @@ const useChallenge = () => {
             body: JSON.stringify(fetchBody)
         })
         .then(res => res.json())
-        .then(console.log)
-        // .then(challengeObj => dispatch({type: 'NEW', payload: challengeObj}))
+        // .then(console.log)
+        .then(challengeObj => dispatch({type: 'NEW', payload: challengeObj}))
     }
 
 

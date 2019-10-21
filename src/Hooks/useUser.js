@@ -1,4 +1,4 @@
-import React, {useReducer} from 'react'
+import {useReducer} from 'react'
 
 const userReducer = (state, {type, payload}) => {
     const {loggedInUserId, token, username, bio, img_url} = state
@@ -11,6 +11,7 @@ const userReducer = (state, {type, payload}) => {
         case "SET":
             return {...state, token: payload.token, loggedInUserId: payload.user_id}
         case "GET": 
+            // debugger
             const {username, bio, img_url} = payload
             return {...state, username, bio, img_url}
         default:
@@ -35,17 +36,21 @@ const useUser = () => {
         })
         .then(res => res.json())
         .then(authObj => {
-            // window.history.pushState({}, "Home", "/")
+            window.history.pushState({urlPath:'/'}, "Home", "/")
             dispatch({type: "LOGIN", payload: authObj})
         })
     }
 
     const getUserData = (userId, token) => {
+        if (userId) {
         fetch(`http://localhost:3000/users/${userId}`, {
             headers: {"Authorization": token }
         })
         .then(res => res.json())
         .then(userObj => dispatch({type: 'GET', payload: userObj}))
+        } else {
+            console.log("Nope")
+        }
     }
 
     const [state, dispatch] = useReducer(userReducer, initialState)

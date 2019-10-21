@@ -12,19 +12,20 @@ const HomeContainer = ({loggedInUserId, fetchNewChallenge, history}) => {
             players: event.target.players.value,
             user_id: loggedInUserId,
         }
-        // console.log(fetchBody)
-        // window.history.pushState(fetchBody, 'New Challenge', `/challenge/${newChallengeId}`)
         history.push(`/challenge/${newChallengeId}`)
         fetchNewChallenge(fetchBody)
     } 
    
-    // console.log(props)
     return (
         <div className="body-container nes-container is-rounded">
             <form className="nes-container with-title is-rounded" id="new-challenge" onSubmit={createChallenge}>
                 <p className="title">New Challenge</p>
                 <div className="challenge-length-radios nes-container is-rounded with-title">
                     <p className="title"> Length </p>
+                    <label>
+                        <input type="radio" className="nes-radio" name="length" value="5" />
+                        <span>5</span>
+                    </label>
                     <label>
                         <input type="radio" className="nes-radio" name="length" value="50" />
                         <span>50</span>
@@ -49,7 +50,6 @@ const HomeContainer = ({loggedInUserId, fetchNewChallenge, history}) => {
                 <br/>
                 <button className="nes-btn is-primary"><input type="submit" value="Challenge" /></button>
             </form>
-            {/* Button will invoke callback to gen uuid -> redirect -> fetch */}
         </div>
     )
 }

@@ -1,29 +1,26 @@
 import React, {useState, useEffect} from 'react';
+import Motivator from '../Components/Motivator';
 
 const ChallengeContainer = ({challenge, dispatch}) => {
     const wordArr = challenge.prompt !== undefined ? challenge.prompt.text.split(" ") : null
     const [totalInput, setTotalInput] = useState([])
-    const [position, setPosition] = useState(0)
     const [input, setInput] = useState("")
     const [inputColor, setInputColor] = useState("")
-    const [loaded, setLoaded] = useState(false)
+    const [wordStatus, setWordStatus] = useState(true)
+    const [startTime, setStartTime] = useState()
+    const [endTime, setEndTime] = useState(null)
 
     const handleInput = (event) => {
-        // debugger
         if (totalInput.length === 0 && event.target.value.length === 1) {
-            setLoaded(true)
+            setStartTime(new Date())
         }
-        setInput(event.target.value)
-        
+        setInput(event.target.value)       
     }
 
     const compareWord = (event) => {
-        console.log(input)
-        console.log(event.key)
-
         if (event.key === " ") {
             event.preventDefault()
-            const currentWord = wordArr[position]
+            const currentWord = wordArr[0]
             if (currentWord === input) {
                 setTotalInput([...totalInput, input])
                 setInput("")
@@ -31,9 +28,18 @@ const ChallengeContainer = ({challenge, dispatch}) => {
                 dispatch({type: "NEXT"})
             } else {
                 setInputColor("is-error")
+                setWordStatus(false)
             }
         }
     }
+
+    useEffect(
+        () => {
+            if (challenge.prompt !== undefined && totalInput.length === challenge.prompt.length) {
+                setEndTime(new Date())
+            }
+        }, [totalInput]
+    )
 
     const renderProgressBar = () => {
         return (
@@ -45,12 +51,18 @@ const ChallengeContainer = ({challenge, dispatch}) => {
             </div>
         )
     }
+
+    const renderStats = () => {
+        const time = (endTime - startTime) / 1000
+        const wpm = (totalInput.length) / (time * 0.0166667)
+        return ( <p> WPM: {wpm} </p>)
+    }
     
     return (
         <div className="body-container nes-container is-rounded">
             <div className="challenge">
-                {/* <p>{challenge.prompt !== undefined ? challenge.prompt.text : "...loading"}</p> */}
                 <div>
+                {endTime !== null ? renderStats() : null}
                 {challenge.prompt !== undefined ? renderProgressBar() : null}
                 <p id="prompt">
                     <span className="nes-text is-success" id="completed-words">{totalInput.join(" ")}</span> <span> </span>
@@ -65,7 +77,7 @@ const ChallengeContainer = ({challenge, dispatch}) => {
                     onChange={handleInput } 
                     onKeyPress={compareWord}
                 />
-                <div className="nes-balloon from-right" id="balloony"> Welcome to the gnome balloon </div>
+                <Motivator wordStatus={wordStatus} />
             </div>
         </div>
     );

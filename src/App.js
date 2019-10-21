@@ -36,8 +36,6 @@ function App() {
   }
 
   const renderChallenge = (renderProps) => {
-    // console.log("hello from the gnome container")
-    // console.log(renderProps.match.params.challenge_id) 
     return <ChallengeContainer challenge={challengeState} dispatch={challengeDispatch} />
   }
 

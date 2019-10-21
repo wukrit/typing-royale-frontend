@@ -113,6 +113,10 @@ button input {
 #balloony {
   float: right;
 }
+
+.chat-bot {
+  display: inline-table;
+}
 /* #completed-words {
   position: absolute;
   z-index: 1;

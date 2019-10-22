@@ -54,8 +54,8 @@ const ChallengeContainer = ({challenge, dispatch}) => {
 
     const renderStats = () => {
         const time = (endTime - startTime) / 1000
-        const wpm = (totalInput.length) / (time * 0.0166667)
-        return ( <p> WPM: {wpm} </p>)
+        const wpm = (totalInput.length) / (time / 60)
+        return ( <p> WPM: {Math.round(wpm * 100) / 100} </p>)
     }
     
     return (

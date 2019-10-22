@@ -8,10 +8,12 @@ const userReducer = (state, {type, payload}) => {
             localStorage.setItem('loggedInUserId', user_id)
             localStorage.setItem('token', token)
             return {...state, token, loggedInUserId: user_id}
+        case 'LOGOUT':
+            localStorage.clear()
+            return {loggedInUserId: null, token: null, username: null, bio: null, img_url: null}
         case "SET":
             return {...state, token: payload.token, loggedInUserId: payload.user_id}
         case "GET": 
-            // debugger
             const {username, bio, img_url} = payload
             return {...state, username, bio, img_url}
         default:

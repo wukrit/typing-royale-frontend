@@ -31,6 +31,8 @@ function App() {
         <i className="nes-kirby"></i><br /><br />
         <li>{`Hello ${username}!`}</li><br />
         <li>Bio: <br />{bio}</li>
+        <br/>
+        <li><button className="nes-btn is-error" onClick={() => userDispatch({type: 'LOGOUT'})}>Log Out</button></li>
       </>
     )
   }

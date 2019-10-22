@@ -1,7 +1,8 @@
-import React, {useState, useEffect} from 'react';
-import Motivator from '../Components/Motivator';
+import React, {useState, useEffect} from 'react'
+import Motivator from '../Components/Motivator'
+import Results from '../Components/Results'
 
-const ChallengeContainer = ({challenge, dispatch}) => {
+const ChallengeContainer = ({challenge, dispatch, loggedInUserId, postResults}) => {
     const wordArr = challenge.prompt !== undefined ? challenge.prompt.text.split(" ") : null
     const [totalInput, setTotalInput] = useState([])
     const [input, setInput] = useState("")
@@ -55,30 +56,41 @@ const ChallengeContainer = ({challenge, dispatch}) => {
     const renderStats = () => {
         const time = (endTime - startTime) / 1000
         const wpm = (totalInput.length) / (time / 60)
+        const fetchBody = {
+            user_id: loggedInUserId,
+            wpm: wpm,
+            challenge_id: challenge.id
+        }
+        postResults(fetchBody)
         return ( <p> WPM: {Math.round(wpm * 100) / 100} </p>)
+    }
+
+    const renderChallenge = () => {
+        return (
+            <div className="challenge">
+            <div>
+            {challenge.prompt !== undefined ? renderProgressBar() : null}
+            <p id="prompt">
+                <span className="nes-text is-success" id="completed-words">{totalInput.join(" ")}</span> <span> </span>
+                {challenge.prompt !== undefined ? challenge.prompt.text : "...loading"} 
+            </p>
+            </div>
+            <br />
+            <input 
+                className={"nes-input challenge-input " + inputColor} 
+                type="text" 
+                value={input}
+                onChange={handleInput } 
+                onKeyPress={compareWord}
+            />
+            <Motivator wordStatus={wordStatus} loggedInUserId={loggedInUserId} />
+        </div>
+        )
     }
     
     return (
         <div className="body-container nes-container is-rounded">
-            <div className="challenge">
-                <div>
-                {endTime !== null ? renderStats() : null}
-                {challenge.prompt !== undefined ? renderProgressBar() : null}
-                <p id="prompt">
-                    <span className="nes-text is-success" id="completed-words">{totalInput.join(" ")}</span> <span> </span>
-                    {challenge.prompt !== undefined ? challenge.prompt.text : "...loading"} 
-                </p>
-                </div>
-                <br />
-                <input 
-                    className={"nes-input challenge-input " + inputColor} 
-                    type="text" 
-                    value={input}
-                    onChange={handleInput } 
-                    onKeyPress={compareWord}
-                />
-                <Motivator wordStatus={wordStatus} />
-            </div>
+            {endTime !== null ? <Results renderStats={renderStats} /> : renderChallenge()}
         </div>
     );
 }

@@ -9,7 +9,7 @@ import ChallengeContainer from './Containers/ChallengeContainer'
 
 function App() {
   const [userState, userDispatch, login, getUserData] = useUser()
-  const [challengeState, challengeDispatch, fetchNewChallenge] = useChallenge()
+  const [challengeState, challengeDispatch, fetchNewChallenge, postResults] = useChallenge()
   const { loggedInUserId, token, username, bio, img_url } = userState
 
   useEffect(
@@ -36,7 +36,11 @@ function App() {
   }
 
   const renderChallenge = (renderProps) => {
-    return <ChallengeContainer challenge={challengeState} dispatch={challengeDispatch} />
+    return <ChallengeContainer 
+      challenge={challengeState} 
+      dispatch={challengeDispatch}
+      postResults={postResults}
+      loggedInUserId={loggedInUserId} />
   }
 
   return (
@@ -67,7 +71,7 @@ function App() {
               />}
             />
             <Route path="/challenge" exact strict render={() => <ChallengeContainer />} />
-            <Route path="/challenge/:challenge_id" render={renderChallenge} />
+            <Route path="/challenge/:challenge_uuid" render={renderChallenge} />
             <Route path="/login" exact> {loggedInUserId ? <Redirect to="/" /> : <FormContainer login={login} />}  </Route>
           </Switch>
 

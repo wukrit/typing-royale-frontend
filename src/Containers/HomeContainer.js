@@ -5,14 +5,14 @@ const HomeContainer = ({loggedInUserId, fetchNewChallenge, history}) => {
 
     const createChallenge = (event) => {
         event.preventDefault()
-        const newChallengeId = uuid()
+        const newChallengeUuid = uuid()
         const fetchBody = {
-            challenge_id: newChallengeId,
+            challenge_uuid: newChallengeUuid,
             length: event.target.length.value,
             players: event.target.players.value,
             user_id: loggedInUserId,
         }
-        history.push(`/challenge/${newChallengeId}`)
+        history.push(`/challenge/${newChallengeUuid}`)
         fetchNewChallenge(fetchBody)
     } 
    

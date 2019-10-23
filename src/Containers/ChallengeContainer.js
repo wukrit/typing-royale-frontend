@@ -1,8 +1,7 @@
-import React, {useState, useEffect, Suspense} from 'react'
+import React, {useState, useEffect} from 'react'
 import Motivator from '../Components/Motivator'
 import Results from '../Components/Results'
 import { ActionCableConsumer } from 'react-actioncable-provider'
-import Input from '../Components/Input'
 import ProgressBar from '../Components/ProgressBar'
 
 
@@ -11,14 +10,14 @@ const ChallengeContainer = ({username, loggedInUserId, postResults}) => {
     const [challenge, setChallenge] = useState(null)
     const [wordArr, setWordArr] = useState(null)
     const [totalInput, setTotalInput] = useState([])
-    const [wordStatus, setWordStatus] = useState(true)
+    // const [wordStatus, setWordStatus] = useState(true)
     const [startTime, setStartTime] = useState()
     const [endTime, setEndTime] = useState(null)
     const [input, setInput] = useState("")
     const [inputColor, setInputColor] = useState("")
     const [subscribed, setSubscribed] = useState(false)
     const [players, setPlayers] = useState({})
-    // const [done, setDone] = useState(false)
+    const [done, setDone] = useState(false)
 
     useEffect(
         () => {
@@ -68,28 +67,31 @@ const ChallengeContainer = ({username, loggedInUserId, postResults}) => {
                 updateProgress()
             } else {
                 setInputColor("is-error")
-                setWordStatus(false)
+                // setWordStatus(false)
             }
         }
     }
 
     const renderStats = () => {
-        let user_id = null
-        loggedInUserId ? user_id = loggedInUserId : user_id = 5
-        const time = (endTime - startTime) / 1000
-        const wpm = (totalInput.length) / (time / 60)
-        const fetchBody = {
-            user_id: user_id,
-            wpm: wpm,
-            uuid: challenge.uuid
+        if (done === false) {
+            let user_id = null
+            loggedInUserId ? user_id = loggedInUserId : user_id = 5
+            const time = (endTime - startTime) / 1000
+            const wpm = (totalInput.length) / (time / 60)
+            const fetchBody = {
+                user_id: user_id,
+                wpm: wpm,
+                uuid: challenge.uuid
+            }
+            fetch(`http://localhost:3000/challenges/${challenge.uuid}/results`, {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(fetchBody)
+            })
+            setDone(true)
         }
-        fetch(`http://localhost:3000/challenges/${challenge.uuid}/results`, {
-            method: "PATCH",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(fetchBody)
-        })
         return (
             renderChallenge()
         )
@@ -164,6 +166,7 @@ const ChallengeContainer = ({username, loggedInUserId, postResults}) => {
                     max={challenge.prompt.length}
                     username={players.player_one}
                     wpm={players.player_one_wpm}
+                    winner={players.winner_name}
                 />
                 <br />
                 {players.player_two ? <ProgressBar
@@ -171,6 +174,7 @@ const ChallengeContainer = ({username, loggedInUserId, postResults}) => {
                     max={challenge.prompt.length}
                     username={players.player_two}
                     wpm={players.player_two_wpm}
+                    winner={players.winner_name}
                 />:
                 null}
             </>

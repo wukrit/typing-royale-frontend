@@ -1,7 +1,7 @@
 import {useReducer} from 'react'
 
 const userReducer = (state, {type, payload}) => {
-    const {loggedInUserId, token, username, bio, img_url} = state
+    // const {loggedInUserId, token, username, bio, img_url} = state
     switch (type) {
         case 'LOGIN':
             const {token, user_id} = payload
@@ -56,7 +56,7 @@ const useUser = () => {
     }
 
     const [state, dispatch] = useReducer(userReducer, initialState)
-    const {loggedInUserId, token, prompt} = state
+    // const {loggedInUserId, token, prompt} = state
 
     
 

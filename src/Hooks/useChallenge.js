@@ -4,10 +4,10 @@ const challengeReducer = (state, {type, payload}) => {
     switch (type) {
         case 'NEW':
             return {...payload}
-        case 'NEXT':
-            const wordArr = state.prompt.text.split(" ")
-            wordArr.shift()
-            return {...state, prompt: {...state.prompt, text: wordArr.join(" ") }}
+        // case 'NEXT':
+        //     const wordArr = state.prompt.text.split(" ")
+        //     wordArr.shift()
+        //     return {...state, prompt: {...state.prompt, text: wordArr.join(" ") }}
         // case 'SUBMIT':
         //     console.log("Hello from the gnome dispatcher")
         default: 

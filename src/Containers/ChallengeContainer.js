@@ -2,6 +2,7 @@ import React, {useState, useEffect, Suspense} from 'react'
 import Motivator from '../Components/Motivator'
 import Results from '../Components/Results'
 import { ActionCableConsumer } from 'react-actioncable-provider'
+import Input from '../Components/Input'
 
 
 const ChallengeContainer = ({dispatch, loggedInUserId, postResults}) => {
@@ -9,11 +10,13 @@ const ChallengeContainer = ({dispatch, loggedInUserId, postResults}) => {
     const [challenge, setChallenge] = useState(null)
     const [wordArr, setWordArr] = useState(null)
     const [totalInput, setTotalInput] = useState([])
-    const [input, setInput] = useState("")
-    const [inputColor, setInputColor] = useState("")
     const [wordStatus, setWordStatus] = useState(true)
     const [startTime, setStartTime] = useState()
     const [endTime, setEndTime] = useState(null)
+    const [input, setInput] = useState("")
+    const [inputColor, setInputColor] = useState("")
+    const [subscribed, setSubscribed] = useState(false)
+    // const [done, setDone] = useState(false)
 
     useEffect(
         () => {
@@ -28,8 +31,11 @@ const ChallengeContainer = ({dispatch, loggedInUserId, postResults}) => {
             }
             if (challenge !== null
                 && challenge.prompt !== undefined
-                && wordArr === null) {
+                && wordArr === null
+                && subscribed === false) {
                 setWordArr(challenge.prompt.text.split(" "))
+                setSubscribed(true)
+                subscribeToChallenge()    
             }
         }
     )
@@ -49,25 +55,6 @@ const ChallengeContainer = ({dispatch, loggedInUserId, postResults}) => {
         setInput(event.target.value)       
     }
 
-    const updateProgress = () => {
-        setWordArr(wordArr.slice(1, wordArr.length))
-
-        const fetchBody = {
-            uuid: challenge.uuid,
-            progress: totalInput.length,
-            user_id: loggedInUserId            
-        }
-        fetch(`http://localhost:3000/challenges/${challenge.id}`, {
-            method: "PATCH",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(fetchBody)
-        })
-        .then(res => res.json())
-        .then(console.log)
-    }
-
     const compareWord = (event) => {
         if (event.key === " ") {
             event.preventDefault()
@@ -77,7 +64,7 @@ const ChallengeContainer = ({dispatch, loggedInUserId, postResults}) => {
                 setInput("")
                 setInputColor("is-success")
                 updateProgress()
-                dispatch({type: "NEXT"})
+                // dispatch({type: "NEXT"})
             } else {
                 setInputColor("is-error")
                 setWordStatus(false)
@@ -115,21 +102,67 @@ const ChallengeContainer = ({dispatch, loggedInUserId, postResults}) => {
             {renderProgressBar()}
             <p id="prompt">
                 <span className="nes-text is-success" id="completed-words">{totalInput.join(" ")}</span> <span> </span>
-                {wordArr !== null ? wordArr.join(" ") : "loading..."} 
+                {wordArr !== null ? wordArr.join(" ") : "...loading"} 
             </p>
             </div>
             <br />
+            {/* <Input
+                autoFocus
+                // compareWord={compareWord}
+                setStartTime={setStartTime}
+                setTotalInput={setTotalInput}
+                setWordStatus={setWordStatus}
+                wordArr={wordArr}
+                totalInput={totalInput}
+                updateProgress={updateProgress}
+            /> */}
             <input
                 autoFocus 
                 className={"nes-input challenge-input " + inputColor} 
                 type="text" 
                 value={input}
-                onChange={handleInput } 
+                onChange={handleInput} 
                 onKeyPress={compareWord}
             />
-            <Motivator wordStatus={wordStatus} loggedInUserId={loggedInUserId} />
+            {/* 
+            <Motivator wordStatus={wordStatus} loggedInUserId={loggedInUserId} /> */}
         </div>
         )
+    }
+
+    const subscribeToChallenge = () => {
+        let fetchBody = {user_id: 5}
+        loggedInUserId !== null ? fetchBody = {user_id: loggedInUserId} : console.log("anon")
+        
+        fetch(`http://localhost:3000/challenges/${challenge.uuid}/subscribe`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(fetchBody)
+        })
+        .then(res => res.json())
+        .then(console.log)
+    }
+
+    const updateProgress = () => {
+        setWordArr(wordArr.slice(1, wordArr.length))
+        let fetchBody = {
+            user_id: 5,
+            progress: totalInput.length + 1,
+        }
+        loggedInUserId !== null ? fetchBody = {user_id: loggedInUserId, progress: totalInput.length + 1} : console.log("anon")
+
+        fetch(`http://localhost:3000/challenges/${challenge.uuid}`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(fetchBody)
+        })
+        .then(res => res.json())
+        .then(console.log)
+        
     }
 
     return (
@@ -138,9 +171,9 @@ const ChallengeContainer = ({dispatch, loggedInUserId, postResults}) => {
             <>
                 <ActionCableConsumer
                     channel={{channel: 'ChallengesChannel', uuid: challenge.uuid}}
-                    onConnected={() => console.log('')}
+                    // onConnected={subscribeToChallenge}
                     onReceived={(payload) => {
-                        console.log(payload.player_one_progress)
+                        console.log(payload)
                     }}
                 >
                 <div className="body-container nes-container is-rounded">

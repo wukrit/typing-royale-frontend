@@ -1,4 +1,5 @@
 import {useReducer} from 'react'
+import API from '../Config/API'
 
 const userReducer = (state, {type, payload}) => {
     // const {loggedInUserId, token, username, bio, img_url} = state

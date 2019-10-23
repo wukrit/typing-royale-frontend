@@ -1,4 +1,5 @@
 import {useReducer} from 'react'
+import API from '../Config/API'
 
 const challengeReducer = (state, {type, payload}) => {
     switch (type) {

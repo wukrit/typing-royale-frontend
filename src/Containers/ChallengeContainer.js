@@ -3,6 +3,7 @@ import Motivator from '../Components/Motivator'
 import Results from '../Components/Results'
 import { ActionCableConsumer } from 'react-actioncable-provider'
 import ProgressBar from '../Components/ProgressBar'
+import API from '../Config/API'
 
 
 const ChallengeContainer = ({username, loggedInUserId, postResults}) => {
@@ -24,7 +25,7 @@ const ChallengeContainer = ({username, loggedInUserId, postResults}) => {
             const urlArr = window.location.href.split("/")
             const slug = urlArr[urlArr.length - 1]
             if (challenge === null) {
-                fetch(`http://localhost:3000/challenges/${slug}`)
+                fetch(`${API}/challenges/${slug}`)
                 .then(res => res.json())
                 .then(challengeObj => {
                     setChallenge(challengeObj)
@@ -83,7 +84,7 @@ const ChallengeContainer = ({username, loggedInUserId, postResults}) => {
                 wpm: wpm,
                 uuid: challenge.uuid
             }
-            fetch(`http://localhost:3000/challenges/${challenge.uuid}/results`, {
+            fetch(`${API}/challenges/${challenge.uuid}/results`, {
                 method: "PATCH",
                 headers: {
                     "Content-Type": "application/json"
@@ -132,7 +133,7 @@ const ChallengeContainer = ({username, loggedInUserId, postResults}) => {
         let fetchBody = {user_id: 5}
         loggedInUserId !== null ? fetchBody = {user_id: loggedInUserId} : console.log("anon")
         
-        fetch(`http://localhost:3000/challenges/${challenge.uuid}/subscribe`, {
+        fetch(`${API}/challenges/${challenge.uuid}/subscribe`, {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json"
@@ -149,7 +150,7 @@ const ChallengeContainer = ({username, loggedInUserId, postResults}) => {
         }
         loggedInUserId !== null ? fetchBody = {user_id: loggedInUserId, progress: totalInput.length + 1} : console.log("anon")
 
-        fetch(`http://localhost:3000/challenges/${challenge.uuid}`, {
+        fetch(`${API}/challenges/${challenge.uuid}`, {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json"

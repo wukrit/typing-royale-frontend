@@ -21,7 +21,7 @@ const useChallenge = () => {
     const [state, dispatch] = useReducer(challengeReducer, initialState)
 
     const fetchNewChallenge = (fetchBody) => {
-        fetch('http://localhost:3000/challenges', {
+        fetch(`${API}/challenges`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -34,7 +34,7 @@ const useChallenge = () => {
     }
 
     const postResults = (fetchBody) => {
-        fetch('http://localhost:3000/user_challenges', {
+        fetch(`${API}/user_challenges`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

@@ -67,7 +67,6 @@ function App() {
           <div id="content" className="main-content column">
 
             <Switch className="nes-container">
-              {/* <Route path="/spice/:slug" render={this.renderSpice} /> */}
               <Route path="/" exact render={(props) =>
                 <HomeContainer
                   loggedInUserId={loggedInUserId}
@@ -79,11 +78,6 @@ function App() {
               <Route path="/challenge/:challenge_uuid" render={renderChallenge} />
               <Route path="/login" exact> {loggedInUserId ? <Redirect to="/" /> : <FormContainer login={login} />}  </Route>
             </Switch>
-
-            {/* // Click new challenge X 
-            // Gen UUID X
-            // Redirect to /challenge/:challenge_id X
-            // Fetch new challenge */}
 
           </div>
         </div>

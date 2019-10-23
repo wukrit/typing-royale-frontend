@@ -1,4 +1,5 @@
 import {useReducer} from 'react'
+import API from '../Config/API'
 
 const userReducer = (state, {type, payload}) => {
     // const {loggedInUserId, token, username, bio, img_url} = state
@@ -29,7 +30,7 @@ const useUser = () => {
     }
 
     const login = (userObj, slug) => {
-        fetch(`http://localhost:3000/${slug.toLowerCase()}`, {
+        fetch(`${API}/${slug.toLowerCase()}`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -45,7 +46,7 @@ const useUser = () => {
 
     const getUserData = (userId, token) => {
         if (userId) {
-        fetch(`http://localhost:3000/users/${userId}`, {
+        fetch(`${API}/users/${userId}`, {
             headers: {"Authorization": token }
         })
         .then(res => res.json())

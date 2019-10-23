@@ -5,9 +5,11 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { ActionCableProvider } from 'react-actioncable-provider';
+import API from './Config/API'
+
 
 ReactDOM.render(
-    <ActionCableProvider url="ws://localhost:3000/cable">
+    <ActionCableProvider url={`${API}/cable`}>
         <Router>
             <App />
         </Router>

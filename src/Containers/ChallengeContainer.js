@@ -3,9 +3,10 @@ import Motivator from '../Components/Motivator'
 import Results from '../Components/Results'
 import { ActionCableConsumer } from 'react-actioncable-provider'
 import Input from '../Components/Input'
+import ProgressBar from '../Components/ProgressBar'
 
 
-const ChallengeContainer = ({dispatch, loggedInUserId, postResults}) => {
+const ChallengeContainer = ({username, loggedInUserId, postResults}) => {
     
     const [challenge, setChallenge] = useState(null)
     const [wordArr, setWordArr] = useState(null)
@@ -16,6 +17,7 @@ const ChallengeContainer = ({dispatch, loggedInUserId, postResults}) => {
     const [input, setInput] = useState("")
     const [inputColor, setInputColor] = useState("")
     const [subscribed, setSubscribed] = useState(false)
+    const [players, setPlayers] = useState({})
     // const [done, setDone] = useState(false)
 
     useEffect(
@@ -72,17 +74,6 @@ const ChallengeContainer = ({dispatch, loggedInUserId, postResults}) => {
         }
     }
 
-    const renderProgressBar = () => {
-        return (
-            <div className="progressbar">
-                {challenge.prompt !== undefined ? 
-                <progress className="nes-progress is-pattern" value={totalInput.length} max={`${challenge.prompt.length}`} />
-                : null }
-                <br /><br />
-            </div>
-        )
-    }
-
     const renderStats = () => {
         const time = (endTime - startTime) / 1000
         const wpm = (totalInput.length) / (time / 60)
@@ -99,7 +90,11 @@ const ChallengeContainer = ({dispatch, loggedInUserId, postResults}) => {
         return (
         <div className="challenge">
             <div>
-            {renderProgressBar()}
+            {challenge.prompt !== undefined ? 
+            renderProgressBars()
+            :
+            null}
+
             <p id="prompt">
                 <span className="nes-text is-success" id="completed-words">{totalInput.join(" ")}</span> <span> </span>
                 {wordArr !== null ? wordArr.join(" ") : "...loading"} 
@@ -141,8 +136,6 @@ const ChallengeContainer = ({dispatch, loggedInUserId, postResults}) => {
             },
             body: JSON.stringify(fetchBody)
         })
-        .then(res => res.json())
-        .then(console.log)
     }
 
     const updateProgress = () => {
@@ -160,9 +153,25 @@ const ChallengeContainer = ({dispatch, loggedInUserId, postResults}) => {
             },
             body: JSON.stringify(fetchBody)
         })
-        .then(res => res.json())
-        .then(console.log)
-        
+    }
+
+    const renderProgressBars = () => {
+        return (
+            <>
+                <ProgressBar
+                    value={players.player_one_progress}
+                    max={challenge.prompt.length}
+                    username={players.player_one}
+                />
+                <br />
+                {players.player_two ? <ProgressBar
+                    value={players.player_two_progress}
+                    max={challenge.prompt.length}
+                    username={players.player_two}
+                />:
+                null}
+            </>
+        )
     }
 
     return (
@@ -173,10 +182,11 @@ const ChallengeContainer = ({dispatch, loggedInUserId, postResults}) => {
                     channel={{channel: 'ChallengesChannel', uuid: challenge.uuid}}
                     // onConnected={subscribeToChallenge}
                     onReceived={(payload) => {
-                        console.log(payload)
+                        setPlayers(payload)
                     }}
                 >
                 <div className="body-container nes-container is-rounded">
+                    {/* {renderProgressBars()} */}
                     {endTime !== null ? <Results renderStats={renderStats} /> : renderChallenge()}
                 </div>
                 </ActionCableConsumer>

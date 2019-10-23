@@ -40,7 +40,8 @@ function App() {
 
   const renderChallenge = (renderProps) => {
     return (
-        <ChallengeContainer 
+        <ChallengeContainer
+          username={ username? username : "anon" }
           dispatch={challengeDispatch}
           postResults={postResults}
           loggedInUserId={loggedInUserId} />

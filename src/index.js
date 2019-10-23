@@ -7,6 +7,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { ActionCableProvider } from 'react-actioncable-provider';
 import API from 'Config/API'
 
+console.log(API)
 ReactDOM.render(
     <ActionCableProvider url={`${API}/cable`}>
         <Router>

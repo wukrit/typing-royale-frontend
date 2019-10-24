@@ -77,8 +77,8 @@ const ChallengeContainer = ({username, loggedInUserId, postResults}) => {
             let user_id = null
             loggedInUserId ? user_id = loggedInUserId : user_id = 5
             const time = (endTime - startTime) / 1000
-            const words = totalInput.join()
-            const wpm = (words.length * 5) / (time / 60)
+            const words = totalInput.join(" ")
+            const wpm = (words.length / 5) / (time / 60)
             const fetchBody = {
                 user_id: user_id,
                 wpm: wpm,

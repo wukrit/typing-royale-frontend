@@ -150,10 +150,10 @@ const ChallengeContainer = ({username, loggedInUserId, postResults}) => {
             progress: totalInput.length + 1,
         }
         loggedInUserId !== null ? fetchBody = {user_id: loggedInUserId, progress: totalInput.length + 1} : console.log("anon")
-        debounce(patchProgressFetch, 100)
+        debounce(patchProgressFetch(fetchBody), 100)
     }
 
-    const patchProgressFetch = () => {
+    const patchProgressFetch = (fetchBody) => {
         fetch(`${API}/challenges/${challenge.uuid}`, {
             method: "PATCH",
             headers: {

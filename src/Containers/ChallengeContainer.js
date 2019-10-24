@@ -75,7 +75,7 @@ const ChallengeContainer = ({username, loggedInUserId, postResults}) => {
     }
 
     const debouncedUpdateProgress = () => {
-        debounce(updateProgress, 100)
+        debounce(updateProgress(), 100)
     }
 
     const renderStats = () => {

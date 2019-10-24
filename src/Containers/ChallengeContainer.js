@@ -1,10 +1,10 @@
 import React, {useState, useEffect} from 'react'
-// import Motivator from '../Components/Motivator'
-// import Results from '../Components/Results'
 import { ActionCableConsumer } from 'react-actioncable-provider'
 import ProgressBar from '../Components/ProgressBar'
 import API from '../Config/API'
 import { debounce, throttle } from 'lodash'
+// import Motivator from '../Components/Motivator'
+// import Results from '../Components/Results'
 
 
 const ChallengeContainer = ({username, loggedInUserId, postResults}) => {
@@ -12,7 +12,6 @@ const ChallengeContainer = ({username, loggedInUserId, postResults}) => {
     const [challenge, setChallenge] = useState(null)
     const [wordArr, setWordArr] = useState(null)
     const [totalInput, setTotalInput] = useState([])
-    // const [wordStatus, setWordStatus] = useState(true)
     const [startTime, setStartTime] = useState()
     const [endTime, setEndTime] = useState(null)
     const [input, setInput] = useState("")
@@ -69,7 +68,6 @@ const ChallengeContainer = ({username, loggedInUserId, postResults}) => {
                 updateProgress()
             } else {
                 setInputColor("is-error")
-                // setWordStatus(false)
             }
         }
     }
@@ -79,7 +77,8 @@ const ChallengeContainer = ({username, loggedInUserId, postResults}) => {
             let user_id = null
             loggedInUserId ? user_id = loggedInUserId : user_id = 5
             const time = (endTime - startTime) / 1000
-            const wpm = (totalInput.length) / (time / 60)
+            const words = totalInput.join()
+            const wpm = (words.length * 5) / (time / 60)
             const fetchBody = {
                 user_id: user_id,
                 wpm: wpm,

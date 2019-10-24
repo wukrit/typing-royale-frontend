@@ -167,6 +167,7 @@ const ChallengeContainer = ({username, loggedInUserId, postResults}) => {
         return (
             <>
                 <ProgressBar
+                    color="is-primary"
                     value={players.player_one_progress}
                     max={challenge.prompt.length}
                     username={players.player_one}
@@ -175,6 +176,7 @@ const ChallengeContainer = ({username, loggedInUserId, postResults}) => {
                 />
                 <br />
                 {players.player_two ? <ProgressBar
+                    color="is-success"
                     value={players.player_two_progress}
                     max={challenge.prompt.length}
                     username={players.player_two}

@@ -118,9 +118,32 @@ button input {
   display: inline-table;
 }
 
-.is-clickable:hover {
-  cursor: pointer;
+.sidebar-btn {
+  width: 10vw;
 }
+
+#side-bar {
+  padding-left: 2.2vw;
+  padding-right: 2.2vw;
+}
+
+#new-challenge {
+  width: 35vw;
+  margin: 35px;
+  display: inline-block;
+}
+
+#new-challenge input {
+  padding-left: 1.2vw;
+  padding-right: 1.2vw; 
+}
+
+#num-players input {
+  padding-left: 2vw;
+  padding-right: 2vw; 
+}
+
+
 
 /* #completed-words {
   position: absolute;

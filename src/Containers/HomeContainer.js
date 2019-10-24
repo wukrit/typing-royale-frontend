@@ -67,7 +67,7 @@ const HomeContainer = ({loggedInUserId, fetchNewChallenge, history}) => {
                     </label>
                 </div>
                 <br/>
-                <div className="challenge-length-radios nes-container is-rounded with-title">
+                <div className="challenge-length-radios nes-container is-rounded with-title" id="num-players">
                     <p className="title"> Players </p>
                     <label>
                         <input type="radio" className="nes-radio" name="players" value="1" />
@@ -77,10 +77,19 @@ const HomeContainer = ({loggedInUserId, fetchNewChallenge, history}) => {
                         <input type="radio" className="nes-radio" name="players" value="2" />
                         <span>2</span>
                     </label>
+                    <label>
+                        <input type="radio" className="nes-radio" name="players" value="3" />
+                        <span>3</span>
+                    </label>
+                    <label>
+                        <input type="radio" className="nes-radio" name="players" value="4" />
+                        <span>4</span>
+                    </label>
                 </div>
                 <br/>
-                <button className="nes-btn is-primary"><input type="submit" value="Challenge" /></button>
+                <button className="nes-btn is-success"><input type="submit" value="Challenge" /></button>
             </form>
+            <i className="nes-icon trophy is-large" id="big-trophy" />
         </div>
     )
 }

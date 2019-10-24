@@ -34,9 +34,13 @@ function App() {
         <i className="nes-kirby" ></i><br /><br />
         <li>{`Hello ${username}!`}</li><br />
         <li>Bio: <br />{bio}</li>
-        {showEditBio ? editBio() : <a><li onClick={() => setShowEditBio(!showEditBio)}>Edit Bio</li></a>}
         <br />
-        <li><button className="nes-btn is-error is-clickable" onClick={() => userDispatch({ type: 'LOGOUT' })}>Log Out</button></li>
+        <li>
+        {showEditBio ? editBio() : <button className="nes-btn is-primary sidebar-btn" onClick={() => setShowEditBio(!showEditBio)}>Edit Bio</button>}
+        </li>
+        <li>
+          <button className="nes-btn is-error sidebar-btn" onClick={() => userDispatch({ type: 'LOGOUT' })}>Log Out</button>
+        </li>
       </>
     )
   }

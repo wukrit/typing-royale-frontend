@@ -17,6 +17,10 @@ const userReducer = (state, {type, payload}) => {
         case "GET": 
             const {username, bio, img_url} = payload
             return {...state, username, bio, img_url}
+        // case "EDIT": {
+        //     const {user_id, token, bio} = payload
+
+        // }
         case "ERROR":
             const {errors} = payload
             return {...state, error: errors[0]}
@@ -65,12 +69,26 @@ const useUser = () => {
         }
     }
 
+    const editUserBio = (payload) => {
+        const {user_id, bio, token} = payload
+        fetch(`${API}/users/${user_id}`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": token
+            },
+            body: JSON.stringify({user_id: user_id, bio: bio})
+        })
+        .then(res => res.json())
+        .then(console.log)
+    }
+
     const [state, dispatch] = useReducer(userReducer, initialState)
     // const {loggedInUserId, token, prompt} = state
 
     
 
-    return [state, dispatch, login, getUserData]
+    return [state, dispatch, login, getUserData, editUserBio]
 }
 
 export default useUser

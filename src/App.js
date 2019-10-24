@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Route, Switch, Link, Redirect } from 'react-router-dom'
 import useUser from './Hooks/useUser'
 import useChallenge from './Hooks/useChallenge'
@@ -9,10 +9,11 @@ import ReactModal from 'react-modal'
 import './App.css'
 
 function App() {
-  const [userState, userDispatch, login, getUserData] = useUser()
+  const [userState, userDispatch, login, getUserData, editUserBio] = useUser()
   const [challengeState, challengeDispatch, fetchNewChallenge, postResults] = useChallenge()
-  const { loggedInUserId, username, bio, error } = userState
-  // not in use yet token, img_url
+  const { loggedInUserId, username, bio, error, token } = userState
+  const [showEditBio, setShowEditBio] = useState(false)
+  // not in use yet img_url
 
   useEffect(
     () => {
@@ -33,17 +34,36 @@ function App() {
         <i className="nes-kirby" ></i><br /><br />
         <li>{`Hello ${username}!`}</li><br />
         <li>Bio: <br />{bio}</li>
+        {showEditBio ? editBio() : <a><li onClick={() => setShowEditBio(!showEditBio)}>Edit Bio</li></a>}
         <br />
-        <li><button className="nes-btn is-error" onClick={() => userDispatch({ type: 'LOGOUT' })}>Log Out</button></li>
+        <li><button className="nes-btn is-error is-clickable" onClick={() => userDispatch({ type: 'LOGOUT' })}>Log Out</button></li>
       </>
     )
   }
 
-  // const renderUserProfile = () => {
-  //   return (
-  //     div
-  //   )
-  // }
+  const handleEditSubmit = (event) => {
+    event.preventDefault()
+    setShowEditBio(!showEditBio)
+    const payload = {
+      user_id: loggedInUserId,
+      bio: event.target.bio.value,
+      token: token
+    }
+    editUserBio(payload)
+  }
+
+  const editBio = () => {
+    console.log("do it again")
+    return (
+      <div>
+        <form className="nes-field" onSubmit={handleEditSubmit}>
+          <input className="nes-input" name="bio" type="textarea" placeholder={bio ? bio : "enter bio here" }/>
+          <input className="nes-btn is-primary" type="submit"/>
+          <button className="nes-btn is-error" onClick={() => setShowEditBio(!showEditBio)}>Cancel</button>
+        </form>
+      </div>
+    )
+  }
 
   const renderChallenge = (renderProps) => {
     return (

@@ -27,8 +27,16 @@ const HomeContainer = ({loggedInUserId, fetchNewChallenge, history}) => {
                         <span>5</span>
                     </label>
                     <label>
+                        <input type="radio" className="nes-radio" name="length" value="25" />
+                        <span>25</span>
+                    </label>
+                    <label>
                         <input type="radio" className="nes-radio" name="length" value="50" />
                         <span>50</span>
+                    </label>
+                    <label>
+                        <input type="radio" className="nes-radio" name="length" value="75" />
+                        <span>75</span>
                     </label>
                     <label>
                         <input type="radio" className="nes-radio" name="length" value="100" />

@@ -87,9 +87,8 @@ const HomeContainer = ({loggedInUserId, fetchNewChallenge, history}) => {
                     </label>
                 </div>
                 <br/>
-                <button className="nes-btn is-success"><input type="submit" value="Challenge" /></button>
+                <button className="nes-btn is-success" id="new-chall-button"><input type="submit" value="Challenge" /></button>
             </form>
-            <i className="nes-icon trophy is-large" id="big-trophy" />
         </div>
     )
 }

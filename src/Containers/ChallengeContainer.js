@@ -154,7 +154,7 @@ const ChallengeContainer = ({username, loggedInUserId, postResults}) => {
         throttledFetch(fetchBody)
     }
 
-    const throttledFetch = throttle((fetchBody) => patchProgressFetch(fetchBody), 1000)
+    const throttledFetch = debounce((fetchBody) => patchProgressFetch(fetchBody), 1000)
 
     const patchProgressFetch = (fetchBody) => {
         fetch(`${API}/challenges/${challenge.uuid}`, {

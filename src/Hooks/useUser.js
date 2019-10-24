@@ -17,6 +17,9 @@ const userReducer = (state, {type, payload}) => {
         case "GET": 
             const {username, bio, img_url} = payload
             return {...state, username, bio, img_url}
+        case "ERROR":
+            const {errors} = payload
+            return {...state, error: errors[0]}
         default:
             throw new Error("Undefined User Dispatch Action")
     }
@@ -40,7 +43,8 @@ const useUser = () => {
         .then(res => res.json())
         .then(authObj => {
             if (authObj.errors) {
-                console.log(errors)
+                console.log(authObj)
+                dispatch({type: "ERROR", payload: authObj})
             } else {
                 window.history.pushState({urlPath:'/'}, "Home", "/")
                 dispatch({type: "LOGIN", payload: authObj})

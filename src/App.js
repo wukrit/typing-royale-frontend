@@ -5,12 +5,13 @@ import useChallenge from './Hooks/useChallenge'
 import FormContainer from './Containers/FormContainer'
 import HomeContainer from './Containers/HomeContainer'
 import ChallengeContainer from './Containers/ChallengeContainer'
+import ReactModal from 'react-modal'
 import './App.css'
 
 function App() {
   const [userState, userDispatch, login, getUserData] = useUser()
   const [challengeState, challengeDispatch, fetchNewChallenge, postResults] = useChallenge()
-  const { loggedInUserId, username, bio  } = userState
+  const { loggedInUserId, username, bio, error } = userState
   // not in use yet token, img_url
 
   useEffect(
@@ -32,20 +33,31 @@ function App() {
         <i className="nes-kirby"></i><br /><br />
         <li>{`Hello ${username}!`}</li><br />
         <li>Bio: <br />{bio}</li>
-        <br/>
-        <li><button className="nes-btn is-error" onClick={() => userDispatch({type: 'LOGOUT'})}>Log Out</button></li>
+        <br />
+        <li><button className="nes-btn is-error" onClick={() => userDispatch({ type: 'LOGOUT' })}>Log Out</button></li>
       </>
     )
   }
 
   const renderChallenge = (renderProps) => {
     return (
-        <ChallengeContainer
-          username={ username? username : "anon" }
-          dispatch={challengeDispatch}
-          postResults={postResults}
-          loggedInUserId={loggedInUserId} />
-      )
+      <ChallengeContainer
+        username={username ? username : "anon"}
+        dispatch={challengeDispatch}
+        postResults={postResults}
+        loggedInUserId={loggedInUserId} />
+    )
+  }
+
+
+  const renderErrors = () => {
+    alert(error)
+    // return (
+      // <ReactModal isOpen= {true} className="nes-container is-rounded">
+      //   hello from the gnome container
+      // </ReactModal>
+
+    // )
   }
 
   return (
@@ -55,33 +67,35 @@ function App() {
         <Link to="/"><h1 className="App-title">Typing Royale</h1></Link>
       </header>
 
-        <div className="page">
-          <div className="side-bar-wrapper">
-            <aside id="side-bar" className="column nes-container is-rounded">
-              <ul>
-                {loggedInUserId ? renderUser() : (<li><Link to="/login">Login | Sign Up</Link></li>)}
-              </ul>
-            </aside>
-          </div>
-
-          <div id="content" className="main-content column">
-
-            <Switch className="nes-container">
-              <Route path="/" exact render={(props) =>
-                <HomeContainer
-                  loggedInUserId={loggedInUserId}
-                  fetchNewChallenge={fetchNewChallenge}
-                  history={props.history}
-                />}
-              />
-              <Route path="/challenge" exact strict render={() => <ChallengeContainer />} />
-              <Route path="/challenge/:challenge_uuid" render={renderChallenge} />
-              <Route path="/login" exact> {loggedInUserId ? <Redirect to="/" /> : <FormContainer login={login} />}  </Route>
-            </Switch>
-
-          </div>
+      <div className="page">
+        <div className="side-bar-wrapper">
+          <aside id="side-bar" className="column nes-container is-rounded">
+            <ul>
+              {loggedInUserId ? renderUser() : (<li><Link to="/login">Login | Sign Up</Link></li>)}
+            </ul>
+          </aside>
         </div>
-      
+
+        <div id="content" className="main-content column">
+
+          {error ? renderErrors() : null}
+
+          <Switch className="nes-container">
+            <Route path="/" exact render={(props) =>
+              <HomeContainer
+                loggedInUserId={loggedInUserId}
+                fetchNewChallenge={fetchNewChallenge}
+                history={props.history}
+              />}
+            />
+            <Route path="/challenge" exact strict render={() => <ChallengeContainer />} />
+            <Route path="/challenge/:challenge_uuid" render={renderChallenge} />
+            <Route path="/login" exact> {loggedInUserId ? <Redirect to="/" /> : <FormContainer login={login} />}  </Route>
+          </Switch>
+
+        </div>
+      </div>
+
 
     </div>
   );

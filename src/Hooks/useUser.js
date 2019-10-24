@@ -17,10 +17,10 @@ const userReducer = (state, {type, payload}) => {
         case "GET": 
             const {username, bio, img_url} = payload
             return {...state, username, bio, img_url}
-        // case "EDIT": {
-        //     const {user_id, token, bio} = payload
-
-        // }
+        case "EDIT": {
+            const {bio} = payload
+            return {...state, bio}
+        }
         case "ERROR":
             const {errors} = payload
             return {...state, error: errors[0]}
@@ -80,7 +80,9 @@ const useUser = () => {
             body: JSON.stringify({user_id: user_id, bio: bio})
         })
         .then(res => res.json())
-        .then(console.log)
+        .then(bioObj => {
+            dispatch({type: 'EDIT', payload: bioObj})
+        })
     }
 
     const [state, dispatch] = useReducer(userReducer, initialState)

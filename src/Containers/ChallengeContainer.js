@@ -151,8 +151,10 @@ const ChallengeContainer = ({username, loggedInUserId, postResults}) => {
         }
         loggedInUserId !== null ? fetchBody = {user_id: loggedInUserId, progress: totalInput.length + 1} : console.log("anon")
 
-        throttle(() => patchProgressFetch(fetchBody), 1000)
+        throttledFetch(fetchBody)
     }
+
+    const throttledFetch = throttle((fetchBody) => patchProgressFetch(fetchBody), 1000)
 
     const patchProgressFetch = (fetchBody) => {
         fetch(`${API}/challenges/${challenge.uuid}`, {

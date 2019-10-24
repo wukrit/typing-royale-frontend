@@ -66,16 +66,12 @@ const ChallengeContainer = ({username, loggedInUserId, postResults}) => {
                 setTotalInput([...totalInput, input])
                 setInput("")
                 setInputColor("is-success")
-                debouncedUpdateProgress()
+                updateProgress()
             } else {
                 setInputColor("is-error")
                 // setWordStatus(false)
             }
         }
-    }
-
-    const debouncedUpdateProgress = () => {
-        debounce(updateProgress(), 100)
     }
 
     const renderStats = () => {
@@ -154,7 +150,10 @@ const ChallengeContainer = ({username, loggedInUserId, postResults}) => {
             progress: totalInput.length + 1,
         }
         loggedInUserId !== null ? fetchBody = {user_id: loggedInUserId, progress: totalInput.length + 1} : console.log("anon")
+        debounce(patchProgressFetch, 100)
+    }
 
+    const patchProgressFetch = () => {
         fetch(`${API}/challenges/${challenge.uuid}`, {
             method: "PATCH",
             headers: {

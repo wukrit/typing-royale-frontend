@@ -30,7 +30,7 @@ function App() {
   const renderUser = () => {
     return (
       <>
-        <i className="nes-kirby"></i><br /><br />
+        <i className="nes-kirby" ></i><br /><br />
         <li>{`Hello ${username}!`}</li><br />
         <li>Bio: <br />{bio}</li>
         <br />
@@ -38,6 +38,12 @@ function App() {
       </>
     )
   }
+
+  // const renderUserProfile = () => {
+  //   return (
+  //     div
+  //   )
+  // }
 
   const renderChallenge = (renderProps) => {
     return (
@@ -52,6 +58,7 @@ function App() {
 
   const renderErrors = () => {
     alert(error)
+
     // return (
       // <ReactModal isOpen= {true} className="nes-container is-rounded">
       //   hello from the gnome container

@@ -189,6 +189,8 @@ const ChallengeContainer = ({username, loggedInUserId, postResults}) => {
         )
     }
 
+    const debouncedSetPlayers = debounce((payload) => setPlayers(payload), 500)
+
     return (
         <>
             {challenge !== null ?
@@ -197,7 +199,7 @@ const ChallengeContainer = ({username, loggedInUserId, postResults}) => {
                     channel={{channel: 'ChallengesChannel', uuid: challenge.uuid}}
                     // onConnected={subscribeToChallenge}
                     onReceived={(payload) => {
-                        setPlayers(payload)
+                        debouncedSetPlayers(payload)
                     }}
                 >
                 <div className="body-container nes-container is-rounded">

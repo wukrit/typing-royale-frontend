@@ -7,7 +7,7 @@ const HomeContainer = ({loggedInUserId, fetchNewChallenge, history}) => {
 
     const createChallenge = (event) => {
         event.preventDefault()
-        if (event.target.value) {
+        if (event.target.length.value) {
             let players = null
             event.target.players.value ? players = event.target.players.value : players = 1
             const newChallengeUuid = uuid()

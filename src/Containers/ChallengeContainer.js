@@ -151,7 +151,7 @@ const ChallengeContainer = ({username, loggedInUserId, postResults}) => {
         }
         loggedInUserId !== null ? fetchBody = {user_id: loggedInUserId, progress: totalInput.length + 1} : console.log("anon")
         
-        const patchProgressFetch = (fetchBody) => {
+        const patchProgressFetch = () => {
             fetch(`${API}/challenges/${challenge.uuid}`, {
                 method: "PATCH",
                 headers: {

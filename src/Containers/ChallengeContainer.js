@@ -97,8 +97,6 @@ const ChallengeContainer = ({username, loggedInUserId, postResults}) => {
             renderChallenge()
         )
     }
-
-    // {Math.round(wpm * 100) / 100}
     
     const renderChallenge = () => {
         return (

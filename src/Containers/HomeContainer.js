@@ -1,23 +1,46 @@
-import React from 'react'
+import React, { useState} from 'react'
 import uuid from 'react-uuid'
 
 const HomeContainer = ({loggedInUserId, fetchNewChallenge, history}) => {
 
+    const [error, setError] = useState()
+
     const createChallenge = (event) => {
         event.preventDefault()
-        const newChallengeUuid = uuid()
-        const fetchBody = {
-            challenge_uuid: newChallengeUuid,
-            length: event.target.length.value,
-            players: event.target.players.value,
-            user_id: loggedInUserId,
+        if (event.target.value) {
+            let players = null
+            event.target.players.value ? players = event.target.players.value : players = 1
+            const newChallengeUuid = uuid()
+            const fetchBody = {
+                challenge_uuid: newChallengeUuid,
+                length: event.target.length.value,
+                players: players,
+                user_id: loggedInUserId,
+            }
+            history.push(`/challenge/${newChallengeUuid}`)
+            fetchNewChallenge(fetchBody)
+        } else {
+            setError(true)
         }
-        history.push(`/challenge/${newChallengeUuid}`)
-        fetchNewChallenge(fetchBody)
     } 
+
+    const displayAlert = (message) => {
+        return (
+            <dialog className="nes-dialog" id="dialog-default">
+                <form method="dialog">
+                <p className="title">Error</p>
+                <p>{message}</p>
+                <menu className="dialog-menu">
+                    <button className="nes-btn is-primary" onClick={() => setError(false)}>Ok</button>
+                </menu>
+                </form>
+            </dialog>
+        )
+    }
    
     return (
         <div className="body-container nes-container is-rounded">
+            {error ? displayAlert() : null}
             <form className="nes-container with-title is-rounded" id="new-challenge" onSubmit={createChallenge}>
                 <p className="title">New Challenge</p>
                 <div className="challenge-length-radios nes-container is-rounded with-title">

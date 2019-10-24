@@ -1,9 +1,10 @@
 import React, {useState, useEffect} from 'react'
-import Motivator from '../Components/Motivator'
-import Results from '../Components/Results'
+// import Motivator from '../Components/Motivator'
+// import Results from '../Components/Results'
 import { ActionCableConsumer } from 'react-actioncable-provider'
 import ProgressBar from '../Components/ProgressBar'
 import API from '../Config/API'
+import { debounce } from 'lodash'
 
 
 const ChallengeContainer = ({username, loggedInUserId, postResults}) => {
@@ -65,12 +66,16 @@ const ChallengeContainer = ({username, loggedInUserId, postResults}) => {
                 setTotalInput([...totalInput, input])
                 setInput("")
                 setInputColor("is-success")
-                updateProgress()
+                debouncedUpdateProgress()
             } else {
                 setInputColor("is-error")
                 // setWordStatus(false)
             }
         }
+    }
+
+    const debouncedUpdateProgress = () => {
+        debounce(updateProgress, 100)
     }
 
     const renderStats = () => {

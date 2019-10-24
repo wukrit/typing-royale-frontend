@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "lodash": "^4.17.15",
     "nes.css": "^2.2.1",
     "react": "^16.10.2",
     "react-actioncable-provider": "^2.0.0",

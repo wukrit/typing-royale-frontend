@@ -150,20 +150,19 @@ const ChallengeContainer = ({username, loggedInUserId, postResults}) => {
             progress: totalInput.length + 1,
         }
         loggedInUserId !== null ? fetchBody = {user_id: loggedInUserId, progress: totalInput.length + 1} : console.log("anon")
-        
-        const patchProgressFetch = () => {
-            fetch(`${API}/challenges/${challenge.uuid}`, {
-                method: "PATCH",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(fetchBody)
-            })
-        }
 
-        throttle(patchProgressFetch, 1000)
+        throttle(() => patchProgressFetch(fetchBody), 1000)
     }
 
+    const patchProgressFetch = (fetchBody) => {
+        fetch(`${API}/challenges/${challenge.uuid}`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(fetchBody)
+        })
+    }
 
     const renderProgressBars = () => {
         return (

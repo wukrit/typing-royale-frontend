@@ -39,8 +39,12 @@ const useUser = () => {
         })
         .then(res => res.json())
         .then(authObj => {
-            window.history.pushState({urlPath:'/'}, "Home", "/")
-            dispatch({type: "LOGIN", payload: authObj})
+            if (authObj.errors) {
+                console.log(errors)
+            } else {
+                window.history.pushState({urlPath:'/'}, "Home", "/")
+                dispatch({type: "LOGIN", payload: authObj})
+            }
         })
     }
 
@@ -52,6 +56,7 @@ const useUser = () => {
         .then(res => res.json())
         .then(userObj => dispatch({type: 'GET', payload: userObj}))
         } else {
+            // render something 
             console.log("Nope")
         }
     }

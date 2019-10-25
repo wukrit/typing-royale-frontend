@@ -115,8 +115,9 @@ const ChallengeContainer = ({username, loggedInUserId, postResults}) => {
             <input
                 autoFocus 
                 autoComplete="off"
+                autoCorrect="off"
                 className={"nes-input challenge-input " + inputColor} 
-                type="text" 
+                type="email" 
                 value={input}
                 onChange={handleInput} 
                 onKeyPress={compareWord}

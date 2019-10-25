@@ -114,11 +114,11 @@ const ChallengeContainer = ({username, loggedInUserId, postResults}) => {
             <br />
             <input
                 autoFocus 
-                spellCheck="false"
+                spellCheck="false" 
                 autoComplete="off"
                 autoCorrect="off"
                 className={"nes-input challenge-input " + inputColor} 
-                type="email" 
+                type="text" 
                 value={input}
                 onChange={handleInput} 
                 onKeyPress={compareWord}

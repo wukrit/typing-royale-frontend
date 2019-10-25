@@ -54,7 +54,7 @@ const ChallengeContainer = ({username, loggedInUserId, postResults}) => {
         if (totalInput.length === 0 && event.target.value.length === 1) {
             setStartTime(new Date())
         }
-        setInput(event.target.value)       
+        setInput(event.target.value.toLowerCase())       
     }
 
     const compareWord = (event) => {
@@ -114,6 +114,7 @@ const ChallengeContainer = ({username, loggedInUserId, postResults}) => {
             <br />
             <input
                 autoFocus 
+                autoComplete="off"
                 className={"nes-input challenge-input " + inputColor} 
                 type="text" 
                 value={input}

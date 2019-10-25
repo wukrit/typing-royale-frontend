@@ -186,6 +186,7 @@ button input {
 
 #prompt {
   white-space: nowrap;
+  overflow-x: hidden;
 }
 
 #completed-words {
@@ -197,6 +198,7 @@ button input {
 @media only screen and (min-width: 600px) {
   #prompt {
     white-space: normal;
+    overflow: auto;
   }
   
   #completed-words {

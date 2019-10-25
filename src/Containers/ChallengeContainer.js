@@ -114,6 +114,7 @@ const ChallengeContainer = ({username, loggedInUserId, postResults}) => {
             <br />
             <input
                 autoFocus 
+                spellCheck="false"
                 autoComplete="off"
                 autoCorrect="off"
                 className={"nes-input challenge-input " + inputColor} 

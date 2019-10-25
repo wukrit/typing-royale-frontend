@@ -31,14 +31,11 @@ function App() {
   const renderUser = () => {
     return (
       <>
-        <i className="nes-kirby" ></i><br /><br />
+        <i className="nes-kirby" ></i>
         <li>{`Hello ${username}!`}</li><br />
-        <li>Bio: <br />{bio}</li>
-        <br />
+        <li className="bio">Bio: <br />{bio}</li>
         <li>
-        {showEditBio ? editBio() : <button className="nes-btn is-primary sidebar-btn" onClick={() => setShowEditBio(!showEditBio)}>Edit Bio</button>}
-        </li>
-        <li>
+          {showEditBio ? editBio() : <button className="nes-btn is-primary sidebar-btn bio" onClick={() => setShowEditBio(!showEditBio)}>Edit Bio</button>}
           <button className="nes-btn is-error sidebar-btn" onClick={() => userDispatch({ type: 'LOGOUT' })}>Log Out</button>
         </li>
       </>
@@ -61,8 +58,8 @@ function App() {
     return (
       <div>
         <form className="nes-field" onSubmit={handleEditSubmit}>
-          <input className="nes-input" name="bio" type="textarea" placeholder={bio ? bio : "enter bio here" }/>
-          <input className="nes-btn is-primary" type="submit"/>
+          <input className="nes-input" name="bio" type="textarea" placeholder={bio ? bio : "enter bio here"} />
+          <input className="nes-btn is-primary" type="submit" />
           <button className="nes-btn is-error" onClick={() => setShowEditBio(!showEditBio)}>Cancel</button>
         </form>
       </div>
@@ -84,9 +81,9 @@ function App() {
     alert(error)
 
     // return (
-      // <ReactModal isOpen= {true} className="nes-container is-rounded">
-      //   hello from the gnome container
-      // </ReactModal>
+    // <ReactModal isOpen= {true} className="nes-container is-rounded">
+    //   hello from the gnome container
+    // </ReactModal>
 
     // )
   }
@@ -125,6 +122,42 @@ function App() {
           </Switch>
 
         </div>
+
+        <footer className="nes-container is-rounded" id="footer">
+          <div id="info-container">
+            <div id="github">
+              {/* Check out this
+              <br />
+              project on github:
+              <br />
+              <a href="https://github.com/wukrit/typing-royale-frontend" target="_blank"><i className="nes-icon github is-medium"></i></a> */}
+              <i class="nes-octocat animate"></i>
+            </div>
+            <div id="super-cool-bois-container">
+              Made with <i className="nes-icon is-small heart"></i> by:
+              <br />
+              <div className="super-cool-boi" id="sukrit">
+                Sukrit Walia
+                <div className="icons">
+                  <i className="nes-icon twitter is-medium"></i>
+                  <i className="nes-icon medium is-medium"></i>
+                  <i className="nes-icon linkedin is-medium"></i>
+                  <i className="nes-icon github is-medium"></i>
+                </div>
+              </div>
+              <div className="super-cool-boi" id="shane">
+                Shane Lonergan
+                <div className="icons">
+                  <i className="nes-icon twitter is-medium"></i>
+                  <i className="nes-icon medium is-medium"></i>
+                  <i className="nes-icon linkedin is-medium"></i>
+                  <i className="nes-icon github is-medium"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </footer>
+
       </div>
 
 

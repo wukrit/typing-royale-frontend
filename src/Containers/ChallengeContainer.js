@@ -106,7 +106,6 @@ const ChallengeContainer = ({username, loggedInUserId, postResults}) => {
             renderProgressBars()
             :
             null}
-
             <p id="prompt">
                 <span className="nes-text is-success" id="completed-words">{totalInput.join(" ")}</span> <span> </span>
                 {wordArr !== null ? wordArr.join(" ") : "...loading"} 

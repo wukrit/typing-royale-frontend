@@ -180,12 +180,37 @@ button input {
   display: none;
 }
 
+.desktop-only {
+  display: none;
+}
+
+#prompt {
+  white-space: nowrap;
+}
+
+#completed-words {
+  display: none;
+}
+
+
+
+@media only screen and (min-width: 600px) {
+  #prompt {
+    white-space: normal;
+  }
+  
+  #completed-words {
+    display: contents;
+  }
+}
 
 @media only screen and (min-width: 1024px) {
   #content {
     padding: 1vh 1vw;
   }
-
+  .desktop-only {
+    display: inline-block;
+  }
   .side-bar-wrapper {
     width: 20vw;
     float: left;

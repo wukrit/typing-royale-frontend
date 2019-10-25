@@ -53,15 +53,15 @@ const HomeContainer = ({loggedInUserId, fetchNewChallenge, history}) => {
                         <input type="radio" className="nes-radio" name="length" value="25" />
                         <span>25</span>
                     </label>
-                    <label>
+                    <label className="desktop-only">
                         <input type="radio" className="nes-radio" name="length" value="50" />
                         <span>50</span>
                     </label>
-                    <label>
+                    <label className="desktop-only">
                         <input type="radio" className="nes-radio" name="length" value="75" />
                         <span>75</span>
                     </label>
-                    <label>
+                    <label className="desktop-only">
                         <input type="radio" className="nes-radio" name="length" value="100" />
                         <span>100</span>
                     </label>
@@ -77,11 +77,11 @@ const HomeContainer = ({loggedInUserId, fetchNewChallenge, history}) => {
                         <input type="radio" className="nes-radio" name="players" value="2" />
                         <span>2</span>
                     </label>
-                    <label>
+                    <label className="desktop-only">
                         <input type="radio" className="nes-radio" name="players" value="3" />
                         <span>3</span>
                     </label>
-                    <label>
+                    <label className="desktop-only">
                         <input type="radio" className="nes-radio" name="players" value="4" />
                         <span>4</span>
                     </label>

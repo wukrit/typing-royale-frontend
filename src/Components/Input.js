@@ -35,8 +35,9 @@ const Input = ({totalInput, wordArr, updateProgress, setStartTime, setTotalInput
 
     return (
         <input
-                autocorrect="off"
-                autocapitalize="off"
+                autoCorrect="off"
+                autoComplete="off"
+                autoCapitalize="off"
                 autoFocus 
                 className={"nes-input challenge-input " + inputColor} 
                 type="text" 

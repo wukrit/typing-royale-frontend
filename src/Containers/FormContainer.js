@@ -12,7 +12,7 @@ const FormContainer = ({login}) => {
     const isActive = (type) => formType === type ? "active" : "inactive"
 
     return (
-        <div className="form-container nes-container is-rounded">
+        <div className="form-container nes-container is-rounded body-container">
             <UserForm type={formType} login={login} />
             <br />
             <div className="toggle-form">

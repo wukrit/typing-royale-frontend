@@ -1,9 +1,10 @@
 import React, {useState, useEffect} from 'react'
-import Motivator from '../Components/Motivator'
-import Results from '../Components/Results'
 import { ActionCableConsumer } from 'react-actioncable-provider'
 import ProgressBar from '../Components/ProgressBar'
 import API from '../Config/API'
+import { debounce, throttle } from 'lodash'
+// import Motivator from '../Components/Motivator'
+// import Results from '../Components/Results'
 
 
 const ChallengeContainer = ({username, loggedInUserId, postResults}) => {
@@ -11,7 +12,6 @@ const ChallengeContainer = ({username, loggedInUserId, postResults}) => {
     const [challenge, setChallenge] = useState(null)
     const [wordArr, setWordArr] = useState(null)
     const [totalInput, setTotalInput] = useState([])
-    // const [wordStatus, setWordStatus] = useState(true)
     const [startTime, setStartTime] = useState()
     const [endTime, setEndTime] = useState(null)
     const [input, setInput] = useState("")
@@ -54,7 +54,7 @@ const ChallengeContainer = ({username, loggedInUserId, postResults}) => {
         if (totalInput.length === 0 && event.target.value.length === 1) {
             setStartTime(new Date())
         }
-        setInput(event.target.value)       
+        setInput(event.target.value.toLowerCase())       
     }
 
     const compareWord = (event) => {
@@ -68,7 +68,6 @@ const ChallengeContainer = ({username, loggedInUserId, postResults}) => {
                 updateProgress()
             } else {
                 setInputColor("is-error")
-                // setWordStatus(false)
             }
         }
     }
@@ -78,7 +77,8 @@ const ChallengeContainer = ({username, loggedInUserId, postResults}) => {
             let user_id = null
             loggedInUserId ? user_id = loggedInUserId : user_id = 5
             const time = (endTime - startTime) / 1000
-            const wpm = (totalInput.length) / (time / 60)
+            const words = totalInput.join(" ")
+            const wpm = (words.length / 5) / (time / 60)
             const fetchBody = {
                 user_id: user_id,
                 wpm: wpm,
@@ -97,8 +97,6 @@ const ChallengeContainer = ({username, loggedInUserId, postResults}) => {
             renderChallenge()
         )
     }
-
-    // {Math.round(wpm * 100) / 100}
     
     const renderChallenge = () => {
         return (
@@ -108,7 +106,6 @@ const ChallengeContainer = ({username, loggedInUserId, postResults}) => {
             renderProgressBars()
             :
             null}
-
             <p id="prompt">
                 <span className="nes-text is-success" id="completed-words">{totalInput.join(" ")}</span> <span> </span>
                 {wordArr !== null ? wordArr.join(" ") : "...loading"} 
@@ -117,6 +114,9 @@ const ChallengeContainer = ({username, loggedInUserId, postResults}) => {
             <br />
             <input
                 autoFocus 
+                spellCheck="false" 
+                autoComplete="off"
+                autoCorrect="off"
                 className={"nes-input challenge-input " + inputColor} 
                 type="text" 
                 value={input}
@@ -150,6 +150,12 @@ const ChallengeContainer = ({username, loggedInUserId, postResults}) => {
         }
         loggedInUserId !== null ? fetchBody = {user_id: loggedInUserId, progress: totalInput.length + 1} : console.log("anon")
 
+        debouncedFetch(fetchBody)
+    }
+
+    const debouncedFetch = debounce((fetchBody) => patchProgressFetch(fetchBody), 1000)
+
+    const patchProgressFetch = (fetchBody) => {
         fetch(`${API}/challenges/${challenge.uuid}`, {
             method: "PATCH",
             headers: {
@@ -163,6 +169,7 @@ const ChallengeContainer = ({username, loggedInUserId, postResults}) => {
         return (
             <>
                 <ProgressBar
+                    color="is-primary"
                     value={players.player_one_progress}
                     max={challenge.prompt.length}
                     username={players.player_one}
@@ -171,6 +178,7 @@ const ChallengeContainer = ({username, loggedInUserId, postResults}) => {
                 />
                 <br />
                 {players.player_two ? <ProgressBar
+                    color="is-success"
                     value={players.player_two_progress}
                     max={challenge.prompt.length}
                     username={players.player_two}
@@ -182,6 +190,8 @@ const ChallengeContainer = ({username, loggedInUserId, postResults}) => {
         )
     }
 
+    const debouncedSetPlayers = debounce((payload) => setPlayers(payload), 500)
+
     return (
         <>
             {challenge !== null ?
@@ -190,7 +200,7 @@ const ChallengeContainer = ({username, loggedInUserId, postResults}) => {
                     channel={{channel: 'ChallengesChannel', uuid: challenge.uuid}}
                     // onConnected={subscribeToChallenge}
                     onReceived={(payload) => {
-                        setPlayers(payload)
+                        debouncedSetPlayers(payload)
                     }}
                 >
                 <div className="body-container nes-container is-rounded">

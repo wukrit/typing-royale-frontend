@@ -6,19 +6,8 @@ body {
   font-family: "Press Start 2P";
   height: 100%;
   margin: 0;
+  overflow-x: hidden;
 }
-
-/* #header {
-  height: 30px;
-  display: flex;
-  align-items: center;
-  background: linear-gradient(#444444, #333333);
-  color: #bbbbbb;
-}
-
-#headerContent {
-  margin-left: 10px;
-} */
 
 #page {
   display: flex;
@@ -26,13 +15,13 @@ body {
 }
 
 .side-bar-wrapper {
-  width: 20vw;
-  float: left;
+  width: 97vw;
+  min-height: 10vh;
   margin: 1vh 1vw;
 }
 
 #content {
-  padding: 1vh;
+  padding: 0 1vw;
 }
 
 a {
@@ -61,11 +50,11 @@ li {
 
 .App-header {
   background-color: #282c34;
-  min-height: 20vh;
+  min-height: 10vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: calc(8px + 2vmin);
+  font-size: calc(3px + 2vmin);
   color: white;
   margin-bottom: 5vh;
 }
@@ -79,7 +68,7 @@ li {
 }
 
 .form-container {
-  display: flex;
+  /* display: flex; */
   flex-direction: column;
   justify-content: center;
 }
@@ -91,11 +80,11 @@ li {
 .toggle-form {
   display: flex;
   justify-content: left;
-  
+  max-height: 3vh; 
 }
 
 .body-container {
-  display: flex;
+  /* display: flex; */
   flex-direction: row;
 }
 
@@ -106,7 +95,6 @@ button input {
 }
 
 .challenge-input {
-  width: inherit;
   font-size: x-large;
 }
 
@@ -117,18 +105,179 @@ button input {
 .chat-bot {
   display: inline-table;
 }
-/* #completed-words {
-  position: absolute;
-  z-index: 1;
+
+.nes-kirby {
+  display: none;
+}
+
+#user-form input {
+  min-width: 70vw;
+}
+
+#side-bar {
+  padding-left: 2.2vw;
+  padding-right: 2.2vw;
+}
+
+#new-challenge {
+  display: inline-block;
+}
+
+#new-challenge input {
+  padding-left: 1.2vw;
+  padding-right: 1.2vw; 
+}
+
+#num-players input {
+  padding-left: 2vw;
+  padding-right: 2vw; 
+}
+
+#new-chall-button {
+  width: 65vw;
+}
+
+#main {
+  min-height: 50vh;
+}
+
+#footer {
+  display:flex;
+  width: 97vw;
+  /* position: absolute; */
+  bottom: 0;
   left: 0;
-  top: 0;
-  height: 50px;
+  /* justify-content: center; */
+  text-align: center;
+  flex-direction: column; 
+  justify-content: space-between;
+}
+
+#super-cool-bois-container {
+  float: right;
+  text-align: center;
+  flex-direction: column; 
+  justify-content: space-between;
+}
+
+#shane {
+  float: right;
+  margin: 1vw;
+  margin-bottom: 0;
+}
+
+#sukrit {
+  float: left;
+  margin: 1vw;
+  margin-bottom: 0;
+}
+
+#github {
+  float: left;
+}
+
+.bio {
+  display: none;
+}
+
+.desktop-only {
+  display: none;
 }
 
 #prompt {
-  position: absolute;
-  z-index: 2;
-  left: 0;
-  top: 0;
-  height: 50px;
+  white-space: nowrap;
+  overflow-x: hidden;
+}
+
+#completed-words {
+  display: none;
+}
+
+
+
+@media only screen and (min-width: 600px) {
+  #prompt {
+    white-space: normal;
+    overflow: auto;
+  }
+  
+  #completed-words {
+    display: contents;
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+  #content {
+    padding: 1vh 1vw;
+  }
+  .desktop-only {
+    display: inline-block;
+  }
+  .side-bar-wrapper {
+    width: 20vw;
+    float: left;
+  }
+  #side-bar {
+    min-height: 50vh;
+  }
+  #footer {
+    display:flex;
+    width: 99vw;
+    /* position: absolute; */
+    bottom: 0;
+    left: 0;
+    /* justify-content: center; */
+    text-align: center;
+    flex-direction: column; 
+    justify-content: space-between;
+  }
+  .App-header {
+    background-color: #282c34;
+    min-height: 20vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(8px + 2vmin);
+    color: white;
+    margin-bottom: 5vh;
+  }
+  #new-challenge {
+    width: 35vw;
+    margin: 2vw;
+    display: inline-block;
+    justify-content: center;
+  }
+
+  #new-chall-button {
+    width: 30vw;
+  }
+  .body-container {
+    display: flex;
+    flex-direction: row;
+    min-height: 50vh;
+  }
+  #user-form input {
+    min-width: 20vw;
+  }
+  .challenge-input {
+    width: inherit;
+    font-size: x-large;
+  }
+  .sidebar-btn {
+    width: 10vw;
+  }
+  .nes-kirby {
+    display: inline-block;
+    margin-bottom: 1vh;
+  }
+  .bio {
+    margin-bottom: 1vh;
+    display: block;
+  }
+}
+
+
+/* #info-container div {
+  flex: 1;
+
 } */

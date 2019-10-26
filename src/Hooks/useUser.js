@@ -8,7 +8,7 @@ const userReducer = (state, {type, payload}) => {
             const {token, user_id} = payload
             localStorage.setItem('loggedInUserId', user_id)
             localStorage.setItem('token', token)
-            return {...state, token, loggedInUserId: user_id}
+            return {...state, token, loggedInUserId: user_id, error: null}
         case 'LOGOUT':
             localStorage.clear()
             return {loggedInUserId: null, token: null, username: null, bio: null, img_url: null}
@@ -17,6 +17,13 @@ const userReducer = (state, {type, payload}) => {
         case "GET": 
             const {username, bio, img_url} = payload
             return {...state, username, bio, img_url}
+        case "EDIT": {
+            const {bio} = payload
+            return {...state, bio}
+        }
+        case "ERROR":
+            const {errors} = payload
+            return {...state, error: errors[0]}
         default:
             throw new Error("Undefined User Dispatch Action")
     }
@@ -39,8 +46,13 @@ const useUser = () => {
         })
         .then(res => res.json())
         .then(authObj => {
-            window.history.pushState({urlPath:'/'}, "Home", "/")
-            dispatch({type: "LOGIN", payload: authObj})
+            if (authObj.errors) {
+                console.log(authObj)
+                dispatch({type: "ERROR", payload: authObj})
+            } else {
+                window.history.pushState({urlPath:'/'}, "Home", "/")
+                dispatch({type: "LOGIN", payload: authObj})
+            }
         })
     }
 
@@ -52,8 +64,25 @@ const useUser = () => {
         .then(res => res.json())
         .then(userObj => dispatch({type: 'GET', payload: userObj}))
         } else {
+            // render something 
             console.log("Nope")
         }
+    }
+
+    const editUserBio = (payload) => {
+        const {user_id, bio, token} = payload
+        fetch(`${API}/users/${user_id}`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": token
+            },
+            body: JSON.stringify({user_id: user_id, bio: bio})
+        })
+        .then(res => res.json())
+        .then(bioObj => {
+            dispatch({type: 'EDIT', payload: bioObj})
+        })
     }
 
     const [state, dispatch] = useReducer(userReducer, initialState)
@@ -61,7 +90,7 @@ const useUser = () => {
 
     
 
-    return [state, dispatch, login, getUserData]
+    return [state, dispatch, login, getUserData, editUserBio]
 }
 
 export default useUser

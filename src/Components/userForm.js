@@ -19,7 +19,7 @@ const UserForm = ({type, login}) => {
     return (
         <div className="user-form">
             <h2>{type}</h2>
-            <form onSubmit={handleSubmit} className="nes-field">
+            <form onSubmit={handleSubmit} className="nes-field" id="user-form">
                 <label>Username</label> 
                 <br />
                 <input 

@@ -1,17 +1,19 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Route, Switch, Link, Redirect } from 'react-router-dom'
 import useUser from './Hooks/useUser'
 import useChallenge from './Hooks/useChallenge'
 import FormContainer from './Containers/FormContainer'
 import HomeContainer from './Containers/HomeContainer'
 import ChallengeContainer from './Containers/ChallengeContainer'
+import ReactModal from 'react-modal'
 import './App.css'
 
 function App() {
-  const [userState, userDispatch, login, getUserData] = useUser()
+  const [userState, userDispatch, login, getUserData, editUserBio] = useUser()
   const [challengeState, challengeDispatch, fetchNewChallenge, postResults] = useChallenge()
-  const { loggedInUserId, username, bio  } = userState
-  // not in use yet token, img_url
+  const { loggedInUserId, username, bio, error, token } = userState
+  const [showEditBio, setShowEditBio] = useState(false)
+  // not in use yet img_url
 
   useEffect(
     () => {
@@ -29,23 +31,61 @@ function App() {
   const renderUser = () => {
     return (
       <>
-        <i className="nes-kirby"></i><br /><br />
+        <i className="nes-kirby" ></i>
         <li>{`Hello ${username}!`}</li><br />
-        <li>Bio: <br />{bio}</li>
-        <br/>
-        <li><button className="nes-btn is-error" onClick={() => userDispatch({type: 'LOGOUT'})}>Log Out</button></li>
+        <li className="bio">Bio: <br />{bio}</li>
+        <li>
+          {showEditBio ? editBio() : <button className="nes-btn is-primary sidebar-btn bio" onClick={() => setShowEditBio(!showEditBio)}>Edit Bio</button>}
+          <button className="nes-btn is-error sidebar-btn" onClick={() => userDispatch({ type: 'LOGOUT' })}>Log Out</button>
+        </li>
       </>
+    )
+  }
+
+  const handleEditSubmit = (event) => {
+    event.preventDefault()
+    setShowEditBio(!showEditBio)
+    const payload = {
+      user_id: loggedInUserId,
+      bio: event.target.bio.value,
+      token: token
+    }
+    editUserBio(payload)
+  }
+
+  const editBio = () => {
+    console.log("do it again")
+    return (
+      <div>
+        <form className="nes-field" onSubmit={handleEditSubmit}>
+          <input className="nes-input" name="bio" type="textarea" placeholder={bio ? bio : "enter bio here"} />
+          <input className="nes-btn is-primary" type="submit" />
+          <button className="nes-btn is-error" onClick={() => setShowEditBio(!showEditBio)}>Cancel</button>
+        </form>
+      </div>
     )
   }
 
   const renderChallenge = (renderProps) => {
     return (
-        <ChallengeContainer
-          username={ username? username : "anon" }
-          dispatch={challengeDispatch}
-          postResults={postResults}
-          loggedInUserId={loggedInUserId} />
-      )
+      <ChallengeContainer
+        username={username ? username : "anon"}
+        dispatch={challengeDispatch}
+        postResults={postResults}
+        loggedInUserId={loggedInUserId} />
+    )
+  }
+
+
+  const renderErrors = () => {
+    alert(error)
+
+    // return (
+    // <ReactModal isOpen= {true} className="nes-container is-rounded">
+    //   hello from the gnome container
+    // </ReactModal>
+
+    // )
   }
 
   return (
@@ -55,33 +95,71 @@ function App() {
         <Link to="/"><h1 className="App-title">Typing Royale</h1></Link>
       </header>
 
-        <div className="page">
-          <div className="side-bar-wrapper">
-            <aside id="side-bar" className="column nes-container is-rounded">
-              <ul>
-                {loggedInUserId ? renderUser() : (<li><Link to="/login">Login | Sign Up</Link></li>)}
-              </ul>
-            </aside>
-          </div>
-
-          <div id="content" className="main-content column">
-
-            <Switch className="nes-container">
-              <Route path="/" exact render={(props) =>
-                <HomeContainer
-                  loggedInUserId={loggedInUserId}
-                  fetchNewChallenge={fetchNewChallenge}
-                  history={props.history}
-                />}
-              />
-              <Route path="/challenge" exact strict render={() => <ChallengeContainer />} />
-              <Route path="/challenge/:challenge_uuid" render={renderChallenge} />
-              <Route path="/login" exact> {loggedInUserId ? <Redirect to="/" /> : <FormContainer login={login} />}  </Route>
-            </Switch>
-
-          </div>
+      <div className="page">
+        <div className="side-bar-wrapper">
+          <aside id="side-bar" className="column nes-container is-rounded">
+            <ul>
+              {loggedInUserId ? renderUser() : (<li><Link to="/login">Login | Sign Up</Link></li>)}
+            </ul>
+          </aside>
         </div>
-      
+
+        <div id="content" className="main-content column">
+
+          {error ? renderErrors() : null}
+
+          <Switch className="nes-container">
+            <Route path="/" exact render={(props) =>
+              <HomeContainer
+                loggedInUserId={loggedInUserId}
+                fetchNewChallenge={fetchNewChallenge}
+                history={props.history}
+              />}
+            />
+            <Route path="/challenge" exact strict render={() => <ChallengeContainer />} />
+            <Route path="/challenge/:challenge_uuid" render={renderChallenge} />
+            <Route path="/login" exact> {loggedInUserId ? <Redirect to="/" /> : <FormContainer login={login} />}  </Route>
+          </Switch>
+
+        </div>
+
+        <footer className="nes-container is-rounded" id="footer">
+          <div id="info-container">
+            <div id="github">
+              {/* Check out this
+              <br />
+              project on github:
+              <br />
+              <a href="https://github.com/wukrit/typing-royale-frontend" target="_blank"><i className="nes-icon github is-medium"></i></a> */}
+              <a href="https://github.com/wukrit/typing-royale-frontend"><i class="nes-octocat animate"></i></a>
+            </div>
+            <div id="super-cool-bois-container">
+              Made with <i className="nes-icon is-small heart"></i> by:
+              <br />
+              <div className="super-cool-boi" id="sukrit">
+                Sukrit Walia
+                <div className="icons">
+                <a href="https://twitter.com/sukritwalia"><i className="nes-icon twitter is-medium"></i></a>
+                  <a href="https://medium.com/@sukritwalia"><i className="nes-icon medium is-medium"></i></a>
+                  <a href="https://www.linkedin.com/in/sukrit-walia-828a3b188/"><i className="nes-icon linkedin is-medium"></i></a>
+                  <a href="https://github.com/wukrit"><i className="nes-icon github is-medium"></i></a>
+                </div>
+              </div>
+              <div className="super-cool-boi" id="shane">
+                Shane Lonergan
+                <div className="icons">
+                  <a href="https://twitter.com/shane__lonergan"><i className="nes-icon twitter is-medium"></i></a>
+                  <a href="https://medium.com/@sptlonergan"><i className="nes-icon medium is-medium"></i></a>
+                  <a href="https://www.linkedin.com/in/shane-lonergan-6a25aa188/"><i className="nes-icon linkedin is-medium"></i></a>
+                  <a href="https://github.com/shanelonergan"><i className="nes-icon github is-medium"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </footer>
+
+      </div>
+
 
     </div>
   );

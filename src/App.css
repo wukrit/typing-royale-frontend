@@ -253,6 +253,11 @@ button input {
     justify-content: center;
   }
 
+  #instructions {
+    margin: 2vw;
+    display: inline-block;
+  }
+
   #new-chall-button {
     width: 30vw;
   }
@@ -274,6 +279,7 @@ button input {
   .nes-kirby {
     display: inline-block;
     margin-bottom: 1vh;
+    margin-top: 2vh;
   }
   .bio {
     margin-bottom: 1vh;
@@ -283,7 +289,7 @@ button input {
     padding-left: 0;
     display: grid;
     grid-template-columns: 15vw;
-    grid-template-rows: 10vw 5vw 0vw 7.25vw;
+    grid-template-rows: 135px 50px 0px 100px;
     justify-items: center;
   }
   #octocat {

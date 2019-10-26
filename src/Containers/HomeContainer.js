@@ -22,7 +22,7 @@ const HomeContainer = ({loggedInUserId, fetchNewChallenge, history}) => {
         } else {
             setError(true)
         }
-    } 
+    }
 
     const displayAlert = (message) => {
         return (
@@ -37,7 +37,7 @@ const HomeContainer = ({loggedInUserId, fetchNewChallenge, history}) => {
             </dialog>
         )
     }
-   
+
     return (
         <div className="body-container nes-container is-rounded">
             {error ? displayAlert() : null}
@@ -89,6 +89,26 @@ const HomeContainer = ({loggedInUserId, fetchNewChallenge, history}) => {
                 <br/>
                 <button className="nes-btn is-success" id="new-chall-button"><input type="submit" value="Challenge" /></button>
             </form>
+            <div className="nes-container with-title is-rounded" id="instructions">
+                <p className="title">Instructions</p>
+                <ol>
+                    <li>
+                        1. Create a new challenge
+                    </li>
+                    <br />
+                    <li>
+                        2. Once the challenge appears, send the link to your opponent
+                    </li>
+                    <br />
+                    <li>
+                        3. Coordinate a start time
+                    </li>
+                    <br />
+                    <li>
+                        4. Type!
+                    </li>
+                </ol>
+        </div>
         </div>
     )
 }

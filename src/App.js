@@ -97,9 +97,17 @@ function App() {
       <div className="page">
         <div className="side-bar-wrapper">
           <aside id="side-bar" className="column nes-container is-rounded">
-            <ul>
-              {loggedInUserId ? renderUser() : (<li><Link to="/login">Login | Sign Up</Link></li>)}
-            </ul>
+              {loggedInUserId ?
+                <ul>
+                  renderUser()
+                </ul>
+                :
+                (<Link to="/login">
+                  <button className="nes-btn is-primary">
+                    Login | Sign Up
+                  </button>
+                  </Link>
+                )}
           </aside>
         </div>
 
@@ -125,7 +133,7 @@ function App() {
         <footer className="nes-container is-rounded" id="footer">
           <div id="info-container">
             <div id="github">
-              <a target="_blank" rel='noreferrer noopener' href="https://github.com/wukrit/typing-royale-frontend"><i class="nes-octocat animate"></i></a>
+              <a target="_blank" rel='noreferrer noopener' href="https://github.com/wukrit/typing-royale-frontend"><i className="nes-octocat animate"></i></a>
             </div>
             <div id="super-cool-bois-container">
               Made with <i className="nes-icon is-small heart"></i> by:

@@ -5,7 +5,6 @@ import useChallenge from './Hooks/useChallenge'
 import FormContainer from './Containers/FormContainer'
 import HomeContainer from './Containers/HomeContainer'
 import ChallengeContainer from './Containers/ChallengeContainer'
-import ReactModal from 'react-modal'
 import './App.css'
 
 function App() {
@@ -126,12 +125,7 @@ function App() {
         <footer className="nes-container is-rounded" id="footer">
           <div id="info-container">
             <div id="github">
-              {/* Check out this
-              <br />
-              project on github:
-              <br />
-              <a href="https://github.com/wukrit/typing-royale-frontend" target="_blank"><i className="nes-icon github is-medium"></i></a> */}
-              <a href="https://github.com/wukrit/typing-royale-frontend"><i class="nes-octocat animate"></i></a>
+              <a target="_blank" rel='noreferrer noopener' href="https://github.com/wukrit/typing-royale-frontend"><i class="nes-octocat animate"></i></a>
             </div>
             <div id="super-cool-bois-container">
               Made with <i className="nes-icon is-small heart"></i> by:
@@ -139,19 +133,19 @@ function App() {
               <div className="super-cool-boi" id="sukrit">
                 Sukrit Walia
                 <div className="icons">
-                <a href="https://twitter.com/sukritwalia"><i className="nes-icon twitter is-medium"></i></a>
-                  <a href="https://medium.com/@sukritwalia"><i className="nes-icon medium is-medium"></i></a>
-                  <a href="https://www.linkedin.com/in/sukrit-walia-828a3b188/"><i className="nes-icon linkedin is-medium"></i></a>
-                  <a href="https://github.com/wukrit"><i className="nes-icon github is-medium"></i></a>
+                <a target="_blank" rel='noreferrer noopener' href="https://twitter.com/sukritwalia"><i className="nes-icon twitter is-medium"></i></a>
+                  <a target="_blank" rel='noreferrer noopener' href="https://medium.com/@sukritwalia"><i className="nes-icon medium is-medium"></i></a>
+                  <a target="_blank" rel='noreferrer noopener' href="https://www.linkedin.com/in/sukrit-walia-828a3b188/"><i className="nes-icon linkedin is-medium"></i></a>
+                  <a target="_blank" rel='noreferrer noopener' href="https://github.com/wukrit"><i className="nes-icon github is-medium"></i></a>
                 </div>
               </div>
               <div className="super-cool-boi" id="shane">
                 Shane Lonergan
                 <div className="icons">
-                  <a href="https://twitter.com/shane__lonergan"><i className="nes-icon twitter is-medium"></i></a>
-                  <a href="https://medium.com/@sptlonergan"><i className="nes-icon medium is-medium"></i></a>
-                  <a href="https://www.linkedin.com/in/shane-lonergan-6a25aa188/"><i className="nes-icon linkedin is-medium"></i></a>
-                  <a href="https://github.com/shanelonergan"><i className="nes-icon github is-medium"></i></a>
+                  <a target="_blank" rel='noreferrer noopener' href="https://twitter.com/shane__lonergan"><i className="nes-icon twitter is-medium"></i></a>
+                  <a target="_blank" rel='noreferrer noopener' href="https://medium.com/@sptlonergan"><i className="nes-icon medium is-medium"></i></a>
+                  <a target="_blank" rel='noreferrer noopener' href="https://www.linkedin.com/in/shane-lonergan-6a25aa188/"><i className="nes-icon linkedin is-medium"></i></a>
+                  <a target="_blank" rel='noreferrer noopener' href="https://github.com/shanelonergan"><i className="nes-icon github is-medium"></i></a>
                 </div>
               </div>
             </div>

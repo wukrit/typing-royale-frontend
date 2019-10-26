@@ -121,6 +121,15 @@ button input {
 
 #new-challenge {
   display: inline-block;
+  width: 82vw;
+  margin-bottom: 3vh;
+}
+
+#instructions {
+  display: inline-block;
+  width: auto;
+  width: 82vw;
+  padding: 0 3vw 0 0;
 }
 
 #new-challenge input {

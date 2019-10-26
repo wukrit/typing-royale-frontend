@@ -265,6 +265,11 @@ button input {
   #instructions {
     margin: 2vw;
     display: inline-block;
+    padding: 1.1vw;
+  }
+
+  #instructions-list li {
+    margin-top: 3vh;
   }
 
   #new-chall-button {

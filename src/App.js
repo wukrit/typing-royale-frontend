@@ -141,19 +141,19 @@ function App() {
               <div className="super-cool-boi" id="sukrit">
                 Sukrit Walia
                 <div className="icons">
-                <a target="_blank" rel='noreferrer noopener' href="https://twitter.com/sukritwalia"><i className="nes-icon twitter is-medium"></i></a>
-                  <a target="_blank" rel='noreferrer noopener' href="https://medium.com/@sukritwalia"><i className="nes-icon medium is-medium"></i></a>
-                  <a target="_blank" rel='noreferrer noopener' href="https://www.linkedin.com/in/sukrit-walia-828a3b188/"><i className="nes-icon linkedin is-medium"></i></a>
-                  <a target="_blank" rel='noreferrer noopener' href="https://github.com/wukrit"><i className="nes-icon github is-medium"></i></a>
+                <a target="_blank" rel='noreferrer noopener' href="https://twitter.com/sukritwalia"><i className="nes-icon twitter is-medium icon"></i></a>
+                  <a target="_blank" rel='noreferrer noopener' href="https://medium.com/@sukritwalia"><i className="nes-icon medium is-medium icon"></i></a>
+                  <a target="_blank" rel='noreferrer noopener' href="https://www.linkedin.com/in/sukrit-walia-828a3b188/"><i className="nes-icon linkedin is-medium icon"></i></a>
+                  <a target="_blank" rel='noreferrer noopener' href="https://github.com/wukrit"><i className="nes-icon github is-medium icon"></i></a>
                 </div>
               </div>
               <div className="super-cool-boi" id="shane">
                 Shane Lonergan
                 <div className="icons">
-                  <a target="_blank" rel='noreferrer noopener' href="https://twitter.com/shane__lonergan"><i className="nes-icon twitter is-medium"></i></a>
-                  <a target="_blank" rel='noreferrer noopener' href="https://medium.com/@sptlonergan"><i className="nes-icon medium is-medium"></i></a>
-                  <a target="_blank" rel='noreferrer noopener' href="https://www.linkedin.com/in/shane-lonergan-6a25aa188/"><i className="nes-icon linkedin is-medium"></i></a>
-                  <a target="_blank" rel='noreferrer noopener' href="https://github.com/shanelonergan"><i className="nes-icon github is-medium"></i></a>
+                  <a target="_blank" rel='noreferrer noopener' href="https://twitter.com/shane__lonergan"><i className="nes-icon twitter is-medium icon"></i></a>
+                  <a target="_blank" rel='noreferrer noopener' href="https://medium.com/@sptlonergan"><i className="nes-icon medium is-medium icon"></i></a>
+                  <a target="_blank" rel='noreferrer noopener' href="https://www.linkedin.com/in/shane-lonergan-6a25aa188/"><i className="nes-icon linkedin is-medium icon"></i></a>
+                  <a target="_blank" rel='noreferrer noopener' href="https://github.com/shanelonergan"><i className="nes-icon github is-medium icon"></i></a>
                 </div>
               </div>
             </div>

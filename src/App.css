@@ -169,6 +169,10 @@ button input {
   justify-content: space-between;
 }
 
+#super-cool-boi {
+  align-content: center;
+}
+
 #shane {
   float: right;
   margin: 1vw;
@@ -207,6 +211,9 @@ button input {
   display: none;
 }
 
+.icon {
+  margin: 1vw;
+}
 
 
 @media only screen and (min-width: 600px) {
@@ -310,6 +317,7 @@ button input {
     margin-top: 1vh;
     margin-left: 1vh;
   }
+
 }
 
 

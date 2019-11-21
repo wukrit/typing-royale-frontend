@@ -22,7 +22,7 @@ const HomeContainer = ({loggedInUserId, fetchNewChallenge, history}) => {
         } else {
             setError(true)
         }
-    } 
+    }
 
     const displayAlert = (message) => {
         return (
@@ -37,7 +37,7 @@ const HomeContainer = ({loggedInUserId, fetchNewChallenge, history}) => {
             </dialog>
         )
     }
-   
+
     return (
         <div className="body-container nes-container is-rounded">
             {error ? displayAlert() : null}
@@ -45,10 +45,10 @@ const HomeContainer = ({loggedInUserId, fetchNewChallenge, history}) => {
                 <p className="title">New Challenge</p>
                 <div className="challenge-length-radios nes-container is-rounded with-title">
                     <p className="title"> Length </p>
-                    <label>
+                    {/* <label>
                         <input type="radio" className="nes-radio" name="length" value="5" />
                         <span>5</span>
-                    </label>
+                    </label> */}
                     <label>
                         <input type="radio" className="nes-radio" name="length" value="25" />
                         <span>25</span>

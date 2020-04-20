@@ -1,12 +1,30 @@
 # Typing-Royale
 
 ## What is Typing-Royale?
+
 A retro themed typing game that allows players to compete head to head over the web.
 
+## Table of Contents
+
+- [Typing-Royale](#typing-royale)
+  - [What is Typing-Royale?](#what-is-typing-royale)
+  - [Table of Contents](#table-of-contents)
+  - [Demo](#demo)
+  - [Screenshots](#screenshots)
+  - [How does it work?](#how-does-it-work)
+    - [Front-End](#front-end)
+    - [Back-End](#back-end)
+  - [Installation](#installation)
+
 ## Demo
-![Typing-Royale Homepage](https://i.imgur.com/rdIjlOS.png)
 
 ![Typing-Royale game gif](https://i.imgur.com/eEvdXsb.gif)
+
+## Screenshots
+
+![Typing-Royale Homepage](https://i.imgur.com/QXsQMMZ.png)
+![Typing Royale Challenge](https://i.imgur.com/F40B0i0.png)
+![Typing Royale Win](https://i.imgur.com/F40B0i0.png)
 
 ## How does it work?
 
